@@ -9,32 +9,32 @@
         "Values": {
           "projections": [
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupName"}},
-              "queryRef": "SharePointGroups.GroupName"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupName"}},
+              "queryRef": "SPOGroups.GroupName"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupType"}},
-              "queryRef": "SharePointGroups.GroupType"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupType"}},
+              "queryRef": "SPOGroups.GroupType"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "MemberCount"}},
-              "queryRef": "SharePointGroups.MemberCount"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "MemberCount"}},
+              "queryRef": "SPOGroups.MemberCount"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "ExternalMemberCount"}},
-              "queryRef": "SharePointGroups.ExternalMemberCount"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "ExternalMemberCount"}},
+              "queryRef": "SPOGroups.ExternalMemberCount"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "ExternalMemberPct"}},
-              "queryRef": "SharePointGroups.ExternalMemberPct"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "ExternalMemberPct"}},
+              "queryRef": "SPOGroups.ExternalMemberPct"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupRiskLevel"}},
-              "queryRef": "SharePointGroups.GroupRiskLevel"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupRiskLevel"}},
+              "queryRef": "SPOGroups.GroupRiskLevel"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "IsOwnerless"}},
-              "queryRef": "SharePointGroups.IsOwnerless"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "IsOwnerless"}},
+              "queryRef": "SPOGroups.IsOwnerless"
             }
           ]
         }

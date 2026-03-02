@@ -10,11 +10,11 @@
           "projections": [{
             "field": {
               "Column": {
-                "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                 "Property": "GrantedToType"
               }
             },
-            "queryRef": "SharePointPermissions.GrantedToType",
+            "queryRef": "SPOPermissions.GrantedToType",
             "active": true
           }]
         },

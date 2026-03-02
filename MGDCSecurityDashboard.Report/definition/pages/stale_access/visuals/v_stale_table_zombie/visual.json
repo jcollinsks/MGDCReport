@@ -9,28 +9,28 @@
         "Values": {
           "projections": [
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "GrantedToEmail"}},
-              "queryRef": "SharePointPermissions.GrantedToEmail"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "GrantedToEmail"}},
+              "queryRef": "SPOPermissions.GrantedToEmail"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "LinkCategory"}},
-              "queryRef": "SharePointPermissions.LinkCategory"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "LinkCategory"}},
+              "queryRef": "SPOPermissions.LinkCategory"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "RoleDefinition"}},
-              "queryRef": "SharePointPermissions.RoleDefinition"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "RoleDefinition"}},
+              "queryRef": "SPOPermissions.RoleDefinition"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "PermissionAgeCategory"}},
-              "queryRef": "SharePointPermissions.PermissionAgeCategory"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "PermissionAgeCategory"}},
+              "queryRef": "SPOPermissions.PermissionAgeCategory"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "PermissionAgeDays"}},
-              "queryRef": "SharePointPermissions.PermissionAgeDays"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "PermissionAgeDays"}},
+              "queryRef": "SPOPermissions.PermissionAgeDays"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "HasNoExpiration"}},
-              "queryRef": "SharePointPermissions.HasNoExpiration"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "HasNoExpiration"}},
+              "queryRef": "SPOPermissions.HasNoExpiration"
             }
           ]
         }

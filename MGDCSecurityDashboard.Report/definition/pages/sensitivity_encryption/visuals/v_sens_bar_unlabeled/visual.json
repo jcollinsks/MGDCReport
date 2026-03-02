@@ -10,11 +10,11 @@
           "projections": [{
             "field": {
               "Column": {
-                "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                 "Property": "DisplayName"
               }
             },
-            "queryRef": "SharePointSites.DisplayName",
+            "queryRef": "SPOSites.DisplayName",
             "active": true
           }]
         },

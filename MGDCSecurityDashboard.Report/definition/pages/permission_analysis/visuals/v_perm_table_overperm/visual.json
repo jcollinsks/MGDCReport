@@ -11,47 +11,47 @@
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointFiles"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOFiles"}},
                   "Property": "FileName"
                 }
               },
-              "queryRef": "SharePointFiles.FileName"
+              "queryRef": "SPOFiles.FileName"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "GrantedToEmail"
                 }
               },
-              "queryRef": "SharePointPermissions.GrantedToEmail"
+              "queryRef": "SPOPermissions.GrantedToEmail"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "RoleDefinition"
                 }
               },
-              "queryRef": "SharePointPermissions.RoleDefinition"
+              "queryRef": "SPOPermissions.RoleDefinition"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "PermissionRiskLevel"
                 }
               },
-              "queryRef": "SharePointPermissions.PermissionRiskLevel"
+              "queryRef": "SPOPermissions.PermissionRiskLevel"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "IsOverprivileged"
                 }
               },
-              "queryRef": "SharePointPermissions.IsOverprivileged"
+              "queryRef": "SPOPermissions.IsOverprivileged"
             }
           ]
         }

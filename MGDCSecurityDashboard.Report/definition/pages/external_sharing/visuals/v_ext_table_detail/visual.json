@@ -11,47 +11,47 @@
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "DisplayName"
                 }
               },
-              "queryRef": "SharePointSites.DisplayName"
+              "queryRef": "SPOSites.DisplayName"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "GrantedToEmail"
                 }
               },
-              "queryRef": "SharePointPermissions.GrantedToEmail"
+              "queryRef": "SPOPermissions.GrantedToEmail"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "LinkCategory"
                 }
               },
-              "queryRef": "SharePointPermissions.LinkCategory"
+              "queryRef": "SPOPermissions.LinkCategory"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "RoleDefinition"
                 }
               },
-              "queryRef": "SharePointPermissions.RoleDefinition"
+              "queryRef": "SPOPermissions.RoleDefinition"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
                   "Property": "PermissionRiskLevel"
                 }
               },
-              "queryRef": "SharePointPermissions.PermissionRiskLevel"
+              "queryRef": "SPOPermissions.PermissionRiskLevel"
             }
           ]
         }

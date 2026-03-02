@@ -10,11 +10,11 @@
           "projections": [{
             "field": {
               "Column": {
-                "Expression": {"SourceRef": {"Entity": "SharePointFileActions"}},
+                "Expression": {"SourceRef": {"Entity": "SPOFileActions"}},
                 "Property": "ActionDateTime"
               }
             },
-            "queryRef": "SharePointFileActions.ActionDateTime",
+            "queryRef": "SPOFileActions.ActionDateTime",
             "active": true
           }]
         },

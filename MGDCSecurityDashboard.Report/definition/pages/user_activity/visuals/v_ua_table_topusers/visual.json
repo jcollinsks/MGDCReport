@@ -11,20 +11,20 @@
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointFileActions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOFileActions"}},
                   "Property": "UserId"
                 }
               },
-              "queryRef": "SharePointFileActions.UserId"
+              "queryRef": "SPOFileActions.UserId"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointFileActions"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOFileActions"}},
                   "Property": "UserDisplayName"
                 }
               },
-              "queryRef": "SharePointFileActions.UserDisplayName"
+              "queryRef": "SPOFileActions.UserDisplayName"
             },
             {
               "field": {

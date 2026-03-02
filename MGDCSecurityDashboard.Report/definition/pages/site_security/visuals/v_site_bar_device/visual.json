@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "DeviceAccessPolicy"}},
-            "queryRef": "SharePointSites.DeviceAccessPolicy",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "DeviceAccessPolicy"}},
+            "queryRef": "SPOSites.DeviceAccessPolicy",
             "active": true
           }]
         },

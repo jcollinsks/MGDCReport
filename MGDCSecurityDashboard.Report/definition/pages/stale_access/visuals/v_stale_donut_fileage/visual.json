@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileAgeCategory"}},
-            "queryRef": "SharePointFiles.FileAgeCategory",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "FileAgeCategory"}},
+            "queryRef": "SPOFiles.FileAgeCategory",
             "active": true
           }]
         },

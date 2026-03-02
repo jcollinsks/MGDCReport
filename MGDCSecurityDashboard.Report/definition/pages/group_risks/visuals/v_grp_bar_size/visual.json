@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupSizeCategory"}},
-            "queryRef": "SharePointGroups.GroupSizeCategory",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupSizeCategory"}},
+            "queryRef": "SPOGroups.GroupSizeCategory",
             "active": true
           }]
         },

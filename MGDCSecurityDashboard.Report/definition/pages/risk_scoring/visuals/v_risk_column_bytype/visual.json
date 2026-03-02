@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteType"}},
-            "queryRef": "SharePointSites.SiteType",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SiteType"}},
+            "queryRef": "SPOSites.SiteType",
             "active": true
           }]
         },

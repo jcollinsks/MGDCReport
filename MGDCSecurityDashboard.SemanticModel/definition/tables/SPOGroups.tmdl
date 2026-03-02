@@ -1,4 +1,4 @@
-table SharePointGroups
+table SPOGroups
 	lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789003
 
 	/// Primary key for group records
@@ -163,7 +163,7 @@ table SharePointGroups
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointGroups = entity
+	partition SPOGroups = entity
 		mode: directQuery
 		source
 			entityName: SPOGroups

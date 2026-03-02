@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "PermissionAgeCategory"}},
-            "queryRef": "SharePointPermissions.PermissionAgeCategory",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "PermissionAgeCategory"}},
+            "queryRef": "SPOPermissions.PermissionAgeCategory",
             "active": true
           }]
         },

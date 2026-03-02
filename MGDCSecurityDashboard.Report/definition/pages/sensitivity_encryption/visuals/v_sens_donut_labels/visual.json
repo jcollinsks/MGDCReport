@@ -10,11 +10,11 @@
           "projections": [{
             "field": {
               "Column": {
-                "Expression": {"SourceRef": {"Entity": "SharePointFiles"}},
+                "Expression": {"SourceRef": {"Entity": "SPOFiles"}},
                 "Property": "SensitivityLabelName"
               }
             },
-            "queryRef": "SharePointFiles.SensitivityLabelName",
+            "queryRef": "SPOFiles.SensitivityLabelName",
             "active": true
           }]
         },

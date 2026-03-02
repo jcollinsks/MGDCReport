@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupRiskLevel"}},
-            "queryRef": "SharePointGroups.GroupRiskLevel",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupRiskLevel"}},
+            "queryRef": "SPOGroups.GroupRiskLevel",
             "active": true
           }]
         },

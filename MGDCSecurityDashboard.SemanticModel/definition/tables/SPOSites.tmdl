@@ -1,4 +1,4 @@
-table SharePointSites
+table SPOSites
 	lineageTag: c1a00001-0001-0001-0001-000000000001
 
 	column SiteId
@@ -304,7 +304,7 @@ table SharePointSites
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointSites = entity
+	partition SPOSites = entity
 		mode: directQuery
 		source
 			entityName: SPOSites

@@ -9,32 +9,32 @@
         "Values": {
           "projections": [
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "DisplayName"}},
-              "queryRef": "SharePointSites.DisplayName"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "DisplayName"}},
+              "queryRef": "SPOSites.DisplayName"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteType"}},
-              "queryRef": "SharePointSites.SiteType"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SiteType"}},
+              "queryRef": "SPOSites.SiteType"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SharingCapability"}},
-              "queryRef": "SharePointSites.SharingCapability"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SharingCapability"}},
+              "queryRef": "SPOSites.SharingCapability"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "CalcSiteRiskScore"}},
-              "queryRef": "SharePointSites.CalcSiteRiskScore"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "CalcSiteRiskScore"}},
+              "queryRef": "SPOSites.CalcSiteRiskScore"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteRiskTier"}},
-              "queryRef": "SharePointSites.SiteRiskTier"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SiteRiskTier"}},
+              "queryRef": "SPOSites.SiteRiskTier"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "DeviceAccessPolicy"}},
-              "queryRef": "SharePointSites.DeviceAccessPolicy"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "DeviceAccessPolicy"}},
+              "queryRef": "SPOSites.DeviceAccessPolicy"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "ConditionalAccessPolicy"}},
-              "queryRef": "SharePointSites.ConditionalAccessPolicy"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "ConditionalAccessPolicy"}},
+              "queryRef": "SPOSites.ConditionalAccessPolicy"
             }
           ]
         }

@@ -10,11 +10,11 @@
           "projections": [{
             "field": {
               "Column": {
-                "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                 "Property": "SiteRiskTier"
               }
             },
-            "queryRef": "SharePointSites.SiteRiskTier",
+            "queryRef": "SPOSites.SiteRiskTier",
             "active": true
           }]
         },

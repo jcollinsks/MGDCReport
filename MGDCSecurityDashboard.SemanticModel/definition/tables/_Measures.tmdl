@@ -2,33 +2,33 @@ table _Measures
 	lineageTag: m1a00000-0000-0000-0001-000000000001
 
 	measure 'Total Sites' =
-			COUNTROWS(SharePointSites)
+			COUNTROWS(SPOSites)
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000001
 
 	measure 'Total Files' =
-			COUNTROWS(SharePointFiles)
+			COUNTROWS(SPOFiles)
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000002
 
 	measure 'Total Storage TB' =
-			DIVIDE(SUM(SharePointFiles[FileSizeInBytes]), 1099511627776, 0)
+			DIVIDE(SUM(SPOFiles[FileSizeInBytes]), 1099511627776, 0)
 		formatString: 0.00
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000003
 
 	measure 'Total Users' =
-			DISTINCTCOUNT(SharePointFileActions[UserId])
+			DISTINCTCOUNT(SPOFileActions[UserId])
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000004
 
 	measure 'Security Score' =
-			VAR SharingRisk = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE()), COUNTROWS(SharePointPermissions), 0)
-			VAR LabelCoverage = DIVIDE(CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[HasSensitivityLabel] = TRUE()), COUNTROWS(SharePointFiles), 0)
-			VAR PermRisk = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] IN {"Critical", "High"}), COUNTROWS(SharePointPermissions), 0)
+			VAR SharingRisk = DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsAnonymousLink] = TRUE()), COUNTROWS(SPOPermissions), 0)
+			VAR LabelCoverage = DIVIDE(CALCULATE(COUNTROWS(SPOFiles), SPOFiles[HasSensitivityLabel] = TRUE()), COUNTROWS(SPOFiles), 0)
+			VAR PermRisk = DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] IN {"Critical", "High"}), COUNTROWS(SPOPermissions), 0)
 			RETURN (1 - SharingRisk * 0.35 - (1 - LabelCoverage) * 0.20 - PermRisk * 0.25) * 100
 		formatString: 0.0
 		displayFolder: Executive Overview
@@ -41,73 +41,73 @@ table _Measures
 		lineageTag: m1a00101-0001-0001-0001-000000000006
 
 	measure 'Critical Risk Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SiteRiskTier] = "Critical")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SiteRiskTier] = "Critical")
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000007
 
 	measure 'High Risk Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SiteRiskTier] = "High")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SiteRiskTier] = "High")
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000008
 
 	measure 'Total Actions' =
-			COUNTROWS(SharePointFileActions)
+			COUNTROWS(SPOFileActions)
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000009
 
 	measure 'Avg Site Risk Score' =
-			AVERAGE(SharePointSites[CalcSiteRiskScore])
+			AVERAGE(SPOSites[CalcSiteRiskScore])
 		formatString: 0.0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000010
 
 	measure 'Sites External Sharing' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SharingCapability] <> "Disabled")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SharingCapability] <> "Disabled")
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000011
 
 	measure 'Total Permissions' =
-			COUNTROWS(SharePointPermissions)
+			COUNTROWS(SPOPermissions)
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000012
 
 	measure 'Anonymous Links' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsAnonymousLink] = TRUE())
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000001
 
 	measure 'Organization Links' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[LinkScope] = "Organization")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[LinkScope] = "Organization")
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000002
 
 	measure 'External Shares' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsExternalShare] = TRUE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsExternalShare] = TRUE())
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000003
 
 	measure 'Direct Access Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[LinkType] = "DirectAccess")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[LinkType] = "DirectAccess")
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000004
 
 	measure 'Never Expiring Links' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[HasNoExpiration] = TRUE(), NOT(ISBLANK(SharePointPermissions[LinkCategory])), SharePointPermissions[LinkCategory] <> "Direct")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[HasNoExpiration] = TRUE(), NOT(ISBLANK(SPOPermissions[LinkCategory])), SPOPermissions[LinkCategory] <> "Direct")
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000005
 
 	measure 'Anonymous Write Links' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE(), SharePointPermissions[RoleDefinition] IN {"Write", "Full Control", "Contribute", "Edit"})
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsAnonymousLink] = TRUE(), SPOPermissions[RoleDefinition] IN {"Write", "Full Control", "Contribute", "Edit"})
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000006
@@ -122,25 +122,25 @@ table _Measures
 		lineageTag: m1a00201-0002-0002-0002-000000000007
 
 	measure 'Sites with Anyone Links' =
-			CALCULATE(DISTINCTCOUNT(SharePointPermissions[SiteId]), SharePointPermissions[LinkScope] = "Anyone")
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[SiteId]), SPOPermissions[LinkScope] = "Anyone")
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000008
 
 	measure 'Avg Links Per File' =
-			DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), NOT(ISBLANK(SharePointPermissions[LinkCategory])), SharePointPermissions[LinkCategory] <> "Direct"), COUNTROWS(SharePointFiles), 0)
+			DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), NOT(ISBLANK(SPOPermissions[LinkCategory])), SPOPermissions[LinkCategory] <> "Direct"), COUNTROWS(SPOFiles), 0)
 		formatString: 0.00
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000009
 
 	measure 'External Recipients' =
-			CALCULATE(DISTINCTCOUNT(SharePointPermissions[GrantedToEmail]), SharePointPermissions[IsExternalShare] = TRUE())
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[GrantedToEmail]), SPOPermissions[IsExternalShare] = TRUE())
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000010
 
 	measure 'Files with Anonymous Access' =
-			CALCULATE(DISTINCTCOUNT(SharePointPermissions[FileId]), SharePointPermissions[IsAnonymousLink] = TRUE())
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), SPOPermissions[IsAnonymousLink] = TRUE())
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000011
@@ -158,79 +158,79 @@ table _Measures
 		lineageTag: m1a00201-0002-0002-0002-000000000013
 
 	measure 'High Risk Sharing Sites' =
-			CALCULATE(DISTINCTCOUNT(SharePointPermissions[SiteId]), SharePointPermissions[PermissionRiskLevel] IN {"Critical", "High"})
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[SiteId]), SPOPermissions[PermissionRiskLevel] IN {"Critical", "High"})
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000014
 
 	measure 'Critical Risk Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "Critical")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] = "Critical")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000001
 
 	measure 'High Risk Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "High")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] = "High")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000002
 
 	measure 'Medium Risk Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "Medium")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] = "Medium")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000003
 
 	measure 'Low Risk Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "Low")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] = "Low")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000004
 
 	measure 'Overprivileged Users' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsOverprivileged] = TRUE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsOverprivileged] = TRUE())
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000005
 
 	measure 'Avg Permissions Per File' =
-			DIVIDE(COUNTROWS(SharePointPermissions), DISTINCTCOUNT(SharePointPermissions[FileId]), 0)
+			DIVIDE(COUNTROWS(SPOPermissions), DISTINCTCOUNT(SPOPermissions[FileId]), 0)
 		formatString: 0.0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000006
 
 	measure 'Full Control Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[RoleDefinition] = "Full Control")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[RoleDefinition] = "Full Control")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000007
 
 	measure 'Permission Sprawl Index' =
-			DIVIDE(COUNTROWS(SharePointPermissions), COUNTROWS(SharePointSites), 0)
+			DIVIDE(COUNTROWS(SPOPermissions), COUNTROWS(SPOSites), 0)
 		formatString: 0.0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000008
 
 	measure 'Broken Inheritance Count' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsInherited] = FALSE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsInherited] = FALSE())
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000009
 
 	measure 'Direct Permission Count' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsInherited] = FALSE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsInherited] = FALSE())
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000010
 
 	measure 'Inherited Permission Count' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsInherited] = TRUE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsInherited] = TRUE())
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000011
 
 	measure 'Unique Grantees' =
-			DISTINCTCOUNT(SharePointPermissions[GrantedToEmail])
+			DISTINCTCOUNT(SPOPermissions[GrantedToEmail])
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000012
@@ -242,73 +242,73 @@ table _Measures
 		lineageTag: m1a00301-0003-0003-0003-000000000013
 
 	measure 'Avg Permission Risk Score' =
-			AVERAGE(SharePointPermissions[PermissionRiskScore])
+			AVERAGE(SPOPermissions[PermissionRiskScore])
 		formatString: 0.0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000014
 
 	measure 'File Label Coverage Pct' =
-			DIVIDE(CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[HasSensitivityLabel] = TRUE()), COUNTROWS(SharePointFiles), 0) * 100
+			DIVIDE(CALCULATE(COUNTROWS(SPOFiles), SPOFiles[HasSensitivityLabel] = TRUE()), COUNTROWS(SPOFiles), 0) * 100
 		formatString: 0.0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000001
 
 	measure 'Site Label Coverage Pct' =
-			DIVIDE(CALCULATE(COUNTROWS(SharePointSites), SharePointSites[HasSensitivityLabel] = TRUE()), COUNTROWS(SharePointSites), 0) * 100
+			DIVIDE(CALCULATE(COUNTROWS(SPOSites), SPOSites[HasSensitivityLabel] = TRUE()), COUNTROWS(SPOSites), 0) * 100
 		formatString: 0.0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000002
 
 	measure 'Encrypted Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[IsEncrypted] = TRUE())
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[IsEncrypted] = TRUE())
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000003
 
 	measure 'Encrypted File Pct' =
-			DIVIDE([Encrypted Files], COUNTROWS(SharePointFiles), 0) * 100
+			DIVIDE([Encrypted Files], COUNTROWS(SPOFiles), 0) * 100
 		formatString: 0.0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000004
 
 	measure 'Unprotected Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[SecurityStatus] = "Unprotected")
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[SecurityStatus] = "Unprotected")
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000005
 
 	measure 'Unprotected Pct' =
-			DIVIDE([Unprotected Files], COUNTROWS(SharePointFiles), 0) * 100
+			DIVIDE([Unprotected Files], COUNTROWS(SPOFiles), 0) * 100
 		formatString: 0.0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000006
 
 	measure 'Protected Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[SecurityStatus] = "Protected")
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[SecurityStatus] = "Protected")
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000007
 
 	measure 'Labeled Only Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[SecurityStatus] = "Labeled Only")
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[SecurityStatus] = "Labeled Only")
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000008
 
 	measure 'Encrypted Only Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[SecurityStatus] = "Encrypted Only")
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[SecurityStatus] = "Encrypted Only")
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000009
 
 	measure 'Sensitive Externally Shared' =
-			CALCULATE(DISTINCTCOUNT(SharePointPermissions[FileId]), FILTER(VALUES(SharePointPermissions[FileId]), CALCULATE(MAX(SharePointFiles[HasSensitivityLabel])) = TRUE()), SharePointPermissions[IsExternalShare] = TRUE())
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), FILTER(VALUES(SPOPermissions[FileId]), CALCULATE(MAX(SPOFiles[HasSensitivityLabel])) = TRUE()), SPOPermissions[IsExternalShare] = TRUE())
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000010
 
 	measure 'Unlabeled Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[HasSensitivityLabel] = FALSE())
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[HasSensitivityLabel] = FALSE())
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000011
@@ -320,31 +320,31 @@ table _Measures
 		lineageTag: m1a00401-0004-0004-0004-000000000012
 
 	measure 'Total Downloads' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[ActionCategory] = "Read")
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[ActionCategory] = "Read")
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000001
 
 	measure 'Total Uploads' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[ActionCategory] = "Write")
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[ActionCategory] = "Write")
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000002
 
 	measure 'Total Deletes' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[ActionCategory] = "Delete")
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[ActionCategory] = "Delete")
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000003
 
 	measure 'Management Actions' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[ActionCategory] = "Manage")
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[ActionCategory] = "Manage")
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000004
 
 	measure 'After Hours Actions' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[IsAfterHours] = TRUE())
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[IsAfterHours] = TRUE())
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000005
@@ -356,7 +356,7 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000006
 
 	measure 'Weekend Actions' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[IsWeekend] = TRUE())
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[IsWeekend] = TRUE())
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000007
@@ -368,19 +368,19 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000008
 
 	measure 'Suspicious Activities' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[IsSuspiciousActivity] = TRUE())
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[IsSuspiciousActivity] = TRUE())
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000009
 
 	measure 'External User Downloads' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[IsExternalDownload] = TRUE())
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[IsExternalDownload] = TRUE())
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000010
 
 	measure 'Unique IPs' =
-			DISTINCTCOUNT(SharePointFileActions[IPAddress])
+			DISTINCTCOUNT(SPOFileActions[IPAddress])
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000011
@@ -392,19 +392,19 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000012
 
 	measure 'High Risk Actions' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[IsHighRiskAction] = TRUE())
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[IsHighRiskAction] = TRUE())
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000013
 
 	measure 'Unique Active Users' =
-			DISTINCTCOUNT(SharePointFileActions[UserId])
+			DISTINCTCOUNT(SPOFileActions[UserId])
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000014
 
 	measure 'External User Actions' =
-			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[IsExternalUser] = TRUE())
+			CALCULATE(COUNTROWS(SPOFileActions), SPOFileActions[IsExternalUser] = TRUE())
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000015
@@ -416,109 +416,109 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000016
 
 	measure 'Sites No Device Policy' =
-			CALCULATE(COUNTROWS(SharePointSites), ISBLANK(SharePointSites[DeviceAccessPolicy]))
+			CALCULATE(COUNTROWS(SPOSites), ISBLANK(SPOSites[DeviceAccessPolicy]))
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000001
 
 	measure 'Orphaned Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[IsOrphaned] = TRUE())
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[IsOrphaned] = TRUE())
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000002
 
 	measure 'Locked Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[LockState] <> "Unlock", NOT(ISBLANK(SharePointSites[LockState])))
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[LockState] <> "Unlock", NOT(ISBLANK(SPOSites[LockState])))
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000003
 
 	measure 'Sites Missing Conditional Access' =
-			CALCULATE(COUNTROWS(SharePointSites), ISBLANK(SharePointSites[ConditionalAccessPolicy]))
+			CALCULATE(COUNTROWS(SPOSites), ISBLANK(SPOSites[ConditionalAccessPolicy]))
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000004
 
 	measure 'Avg Site Risk' =
-			AVERAGE(SharePointSites[CalcSiteRiskScore])
+			AVERAGE(SPOSites[CalcSiteRiskScore])
 		formatString: 0.0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000005
 
 	measure 'External Sharing Enabled Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SharingCapability] <> "Disabled")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SharingCapability] <> "Disabled")
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000006
 
 	measure 'Team Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SiteType] = "Team")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SiteType] = "Team")
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000007
 
 	measure 'Communication Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SiteType] = "Communication")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SiteType] = "Communication")
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000008
 
 	measure 'Personal Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[SiteType] = "Personal")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[SiteType] = "Personal")
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000009
 
 	measure 'Overprovisioned Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[IsOverprovisioned] = TRUE())
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[IsOverprovisioned] = TRUE())
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000010
 
 	measure 'Total Groups' =
-			COUNTROWS(SharePointGroups)
+			COUNTROWS(SPOGroups)
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000001
 
 	measure 'External Members' =
-			SUM(SharePointGroups[ExternalMemberCount])
+			SUM(SPOGroups[ExternalMemberCount])
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000002
 
 	measure 'Ownerless Groups' =
-			CALCULATE(COUNTROWS(SharePointGroups), SharePointGroups[IsOwnerless] = TRUE())
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[IsOwnerless] = TRUE())
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000003
 
 	measure 'Overlarge Groups' =
-			CALCULATE(COUNTROWS(SharePointGroups), SharePointGroups[IsOverlarge] = TRUE())
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[IsOverlarge] = TRUE())
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000004
 
 	measure 'Security Groups with External' =
-			CALCULATE(COUNTROWS(SharePointGroups), SharePointGroups[GroupType] = "SecurityGroup", SharePointGroups[ExternalMemberCount] > 0)
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupType] = "SecurityGroup", SPOGroups[ExternalMemberCount] > 0)
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000005
 
 	measure 'Avg Group Size' =
-			AVERAGE(SharePointGroups[MemberCount])
+			AVERAGE(SPOGroups[MemberCount])
 		formatString: 0.0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000006
 
 	measure 'Groups High Risk' =
-			CALCULATE(COUNTROWS(SharePointGroups), SharePointGroups[GroupRiskLevel] IN {"Critical", "High"})
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupRiskLevel] IN {"Critical", "High"})
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000007
 
 	measure 'External Member Pct Overall' =
-			DIVIDE([External Members], SUM(SharePointGroups[MemberCount]), 0) * 100
+			DIVIDE([External Members], SUM(SPOGroups[MemberCount]), 0) * 100
 		formatString: 0.0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000008
@@ -536,148 +536,148 @@ table _Measures
 		lineageTag: m1a00701-0007-0007-0007-000000000010
 
 	measure 'Avg External Pct Per Group' =
-			AVERAGE(SharePointGroups[ExternalMemberPct])
+			AVERAGE(SPOGroups[ExternalMemberPct])
 		formatString: 0.0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000011
 
 	measure 'Total Version Storage TB' =
-			DIVIDE(SUM(SharePointFiles[VersionStorageInBytes]), 1099511627776, 0)
+			DIVIDE(SUM(SPOFiles[VersionStorageInBytes]), 1099511627776, 0)
 		formatString: 0.00
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000001
 
 	measure 'Avg Version Bloat Ratio' =
-			AVERAGE(SharePointFiles[VersionBloatRatio])
+			AVERAGE(SPOFiles[VersionBloatRatio])
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000002
 
 	measure 'Large Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[IsLargeFile] = TRUE())
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[IsLargeFile] = TRUE())
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000003
 
 	measure 'Reclaimable Storage GB' =
-			DIVIDE(CALCULATE(SUM(SharePointFiles[VersionStorageInBytes]), SharePointFiles[VersionBloatRatio] > 5), 1073741824, 0)
+			DIVIDE(CALCULATE(SUM(SPOFiles[VersionStorageInBytes]), SPOFiles[VersionBloatRatio] > 5), 1073741824, 0)
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000004
 
 	measure 'Unique File Types' =
-			DISTINCTCOUNT(SharePointFiles[FileExtension])
+			DISTINCTCOUNT(SPOFiles[FileExtension])
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000005
 
 	measure 'Avg File Size MB' =
-			AVERAGE(SharePointFiles[FileSizeMB])
+			AVERAGE(SPOFiles[FileSizeMB])
 		formatString: 0.00
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000006
 
 	measure 'Total Documents' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[FileCategory] = "Documents")
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[FileCategory] = "Documents")
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000007
 
 	measure 'Total Spreadsheets' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[FileCategory] = "Spreadsheets")
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[FileCategory] = "Spreadsheets")
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000008
 
 	measure 'Excessive Version Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[VersionCount] > 100)
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[VersionCount] > 100)
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000009
 
 	measure 'Avg Versions Per File' =
-			AVERAGE(SharePointFiles[VersionCount])
+			AVERAGE(SPOFiles[VersionCount])
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000010
 
 	measure 'Storage Efficiency Score' =
-			100 - (DIVIDE(SUM(SharePointFiles[VersionStorageInBytes]), SUM(SharePointFiles[FileSizeInBytes]) + SUM(SharePointFiles[VersionStorageInBytes]), 0) * 100)
+			100 - (DIVIDE(SUM(SPOFiles[VersionStorageInBytes]), SUM(SPOFiles[FileSizeInBytes]) + SUM(SPOFiles[VersionStorageInBytes]), 0) * 100)
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000011
 
 	measure 'Stale Files' =
-			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[IsStale] = TRUE())
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[IsStale] = TRUE())
 		formatString: #,##0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000001
 
 	measure 'Stale File Pct' =
-			DIVIDE([Stale Files], COUNTROWS(SharePointFiles), 0) * 100
+			DIVIDE([Stale Files], COUNTROWS(SPOFiles), 0) * 100
 		formatString: 0.0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000002
 
 	measure 'Stale Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[DaysSinceModified] > 180)
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[DaysSinceModified] > 180)
 		formatString: #,##0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000003
 
 	measure 'Abandoned Sites' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[DaysSinceModified] > 365)
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[DaysSinceModified] > 365)
 		formatString: #,##0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000004
 
 	measure 'Ancient Permissions' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionAgeCategory] = "Ancient")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionAgeCategory] = "Ancient")
 		formatString: #,##0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000005
 
 	measure 'Zombie Links' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[HasNoExpiration] = TRUE(), SharePointPermissions[PermissionAgeDays] > 365, NOT(ISBLANK(SharePointPermissions[LinkCategory])), SharePointPermissions[LinkCategory] <> "Direct")
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[HasNoExpiration] = TRUE(), SPOPermissions[PermissionAgeDays] > 365, NOT(ISBLANK(SPOPermissions[LinkCategory])), SPOPermissions[LinkCategory] <> "Direct")
 		formatString: #,##0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000006
 
 	measure 'Stale Permission Pct' =
-			DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionAgeCategory] IN {"Old", "Ancient"}), [Total Permissions], 0) * 100
+			DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionAgeCategory] IN {"Old", "Ancient"}), [Total Permissions], 0) * 100
 		formatString: 0.0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000007
 
 	measure 'Stale Storage TB' =
-			DIVIDE(CALCULATE(SUM(SharePointFiles[FileSizeInBytes]), SharePointFiles[IsStale] = TRUE()), 1099511627776, 0)
+			DIVIDE(CALCULATE(SUM(SPOFiles[FileSizeInBytes]), SPOFiles[IsStale] = TRUE()), 1099511627776, 0)
 		formatString: 0.00
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000008
 
 	measure 'Abandoned File Pct' =
-			DIVIDE(CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[DaysSinceModified] > 365), COUNTROWS(SharePointFiles), 0) * 100
+			DIVIDE(CALCULATE(COUNTROWS(SPOFiles), SPOFiles[DaysSinceModified] > 365), COUNTROWS(SPOFiles), 0) * 100
 		formatString: 0.0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000009
 
 	measure 'Avg Permission Age Days' =
-			AVERAGEX(SharePointPermissions, SharePointPermissions[PermissionAgeDays])
+			AVERAGEX(SPOPermissions, SPOPermissions[PermissionAgeDays])
 		formatString: 0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000010
 
 	measure 'Sharing Risk Component' =
-			VAR AnonPct = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE()), COUNTROWS(SharePointPermissions), 0)
-			VAR ExtPct = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsExternalShare] = TRUE()), COUNTROWS(SharePointPermissions), 0)
+			VAR AnonPct = DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsAnonymousLink] = TRUE()), COUNTROWS(SPOPermissions), 0)
+			VAR ExtPct = DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsExternalShare] = TRUE()), COUNTROWS(SPOPermissions), 0)
 			RETURN (AnonPct * 60 + ExtPct * 40) * 100
 		formatString: 0.0
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000001
 
 	measure 'Permission Risk Component' =
-			VAR CritPct = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "Critical"), COUNTROWS(SharePointPermissions), 0)
-			VAR HighPct = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "High"), COUNTROWS(SharePointPermissions), 0)
+			VAR CritPct = DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] = "Critical"), COUNTROWS(SPOPermissions), 0)
+			VAR HighPct = DIVIDE(CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[PermissionRiskLevel] = "High"), COUNTROWS(SPOPermissions), 0)
 			RETURN (CritPct * 70 + HighPct * 30) * 100
 		formatString: 0.0
 		displayFolder: Risk Scoring
@@ -696,7 +696,7 @@ table _Measures
 		lineageTag: m1a01001-0010-0010-0010-000000000004
 
 	measure 'Group Risk Component' =
-			DIVIDE(CALCULATE(COUNTROWS(SharePointGroups), SharePointGroups[GroupRiskLevel] IN {"Critical", "High"}), COUNTROWS(SharePointGroups), 0) * 100
+			DIVIDE(CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupRiskLevel] IN {"Critical", "High"}), COUNTROWS(SPOGroups), 0) * 100
 		formatString: 0.0
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000005
@@ -708,28 +708,28 @@ table _Measures
 		lineageTag: m1a01001-0010-0010-0010-000000000006
 
 	measure 'Data Exposure Score' =
-			VAR AnonFiles = CALCULATE(DISTINCTCOUNT(SharePointPermissions[FileId]), SharePointPermissions[IsAnonymousLink] = TRUE())
-			VAR ExtFiles = CALCULATE(DISTINCTCOUNT(SharePointPermissions[FileId]), SharePointPermissions[IsExternalShare] = TRUE())
-			VAR TotalFiles = COUNTROWS(SharePointFiles)
+			VAR AnonFiles = CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), SPOPermissions[IsAnonymousLink] = TRUE())
+			VAR ExtFiles = CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), SPOPermissions[IsExternalShare] = TRUE())
+			VAR TotalFiles = COUNTROWS(SPOFiles)
 			RETURN DIVIDE(AnonFiles * 3 + ExtFiles, TotalFiles, 0) * 100
 		formatString: 0.0
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000007
 
 	measure 'Risk Reduction Opportunities' =
-			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE(), SharePointPermissions[HasNoExpiration] = TRUE()) + CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[SecurityStatus] = "Unprotected", SharePointFiles[IsStale] = TRUE()) + CALCULATE(COUNTROWS(SharePointGroups), SharePointGroups[IsOwnerless] = TRUE())
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsAnonymousLink] = TRUE(), SPOPermissions[HasNoExpiration] = TRUE()) + CALCULATE(COUNTROWS(SPOFiles), SPOFiles[SecurityStatus] = "Unprotected", SPOFiles[IsStale] = TRUE()) + CALCULATE(COUNTROWS(SPOGroups), SPOGroups[IsOwnerless] = TRUE())
 		formatString: #,##0
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000008
 
 	measure 'Sites Above Threshold' =
-			CALCULATE(COUNTROWS(SharePointSites), SharePointSites[CalcSiteRiskScore] >= 50)
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[CalcSiteRiskScore] >= 50)
 		formatString: #,##0
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000009
 
 	measure 'Avg Composite Risk' =
-			AVERAGE(SharePointSites[CalcSiteRiskScore])
+			AVERAGE(SPOSites[CalcSiteRiskScore])
 		formatString: 0.0
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000010

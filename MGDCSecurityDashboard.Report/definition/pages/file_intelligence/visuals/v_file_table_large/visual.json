@@ -9,28 +9,28 @@
         "Values": {
           "projections": [
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileName"}},
-              "queryRef": "SharePointFiles.FileName"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "FileName"}},
+              "queryRef": "SPOFiles.FileName"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileSizeMB"}},
-              "queryRef": "SharePointFiles.FileSizeMB"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "FileSizeMB"}},
+              "queryRef": "SPOFiles.FileSizeMB"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "VersionCount"}},
-              "queryRef": "SharePointFiles.VersionCount"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "VersionCount"}},
+              "queryRef": "SPOFiles.VersionCount"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "VersionBloatRatio"}},
-              "queryRef": "SharePointFiles.VersionBloatRatio"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "VersionBloatRatio"}},
+              "queryRef": "SPOFiles.VersionBloatRatio"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileCategory"}},
-              "queryRef": "SharePointFiles.FileCategory"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "FileCategory"}},
+              "queryRef": "SPOFiles.FileCategory"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "SecurityStatus"}},
-              "queryRef": "SharePointFiles.SecurityStatus"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "SecurityStatus"}},
+              "queryRef": "SPOFiles.SecurityStatus"
             }
           ]
         }

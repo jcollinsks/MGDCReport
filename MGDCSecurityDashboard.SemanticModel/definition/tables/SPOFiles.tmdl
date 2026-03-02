@@ -1,4 +1,4 @@
-table SharePointFiles
+table SPOFiles
 	lineageTag: c1a00002-0001-0001-0001-000000000001
 
 	column FileId
@@ -261,7 +261,7 @@ table SharePointFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointFiles = entity
+	partition SPOFiles = entity
 		mode: directQuery
 		source
 			entityName: SPOFiles

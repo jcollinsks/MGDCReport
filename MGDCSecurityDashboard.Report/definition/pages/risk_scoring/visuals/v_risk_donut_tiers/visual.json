@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteRiskTier"}},
-            "queryRef": "SharePointSites.SiteRiskTier",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SiteRiskTier"}},
+            "queryRef": "SPOSites.SiteRiskTier",
             "active": true
           }]
         },

@@ -11,56 +11,56 @@
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "DisplayName"
                 }
               },
-              "queryRef": "SharePointSites.DisplayName"
+              "queryRef": "SPOSites.DisplayName"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "SiteUrl"
                 }
               },
-              "queryRef": "SharePointSites.SiteUrl"
+              "queryRef": "SPOSites.SiteUrl"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "CalcSiteRiskScore"
                 }
               },
-              "queryRef": "SharePointSites.CalcSiteRiskScore"
+              "queryRef": "SPOSites.CalcSiteRiskScore"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "SiteRiskTier"
                 }
               },
-              "queryRef": "SharePointSites.SiteRiskTier"
+              "queryRef": "SPOSites.SiteRiskTier"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "SharingCapability"
                 }
               },
-              "queryRef": "SharePointSites.SharingCapability"
+              "queryRef": "SPOSites.SharingCapability"
             },
             {
               "field": {
                 "Column": {
-                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Expression": {"SourceRef": {"Entity": "SPOSites"}},
                   "Property": "StorageUsedGB"
                 }
               },
-              "queryRef": "SharePointSites.StorageUsedGB"
+              "queryRef": "SPOSites.StorageUsedGB"
             }
           ]
         }

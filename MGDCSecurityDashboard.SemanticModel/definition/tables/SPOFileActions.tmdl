@@ -1,4 +1,4 @@
-table SharePointFileActions
+table SPOFileActions
 	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567801
 
 	/// Primary key for file action events
@@ -221,7 +221,7 @@ table SharePointFileActions
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointFileActions = entity
+	partition SPOFileActions = entity
 		mode: directQuery
 		source
 			entityName: SPOFileActions

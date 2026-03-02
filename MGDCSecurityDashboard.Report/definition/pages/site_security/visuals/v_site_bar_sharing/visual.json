@@ -8,8 +8,8 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SharingCapability"}},
-            "queryRef": "SharePointSites.SharingCapability",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SharingCapability"}},
+            "queryRef": "SPOSites.SharingCapability",
             "active": true
           }]
         },

@@ -1,4 +1,4 @@
-table SharePointPermissions
+table SPOPermissions
 	lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678902
 
 	/// Primary key for permission records
@@ -231,7 +231,7 @@ table SharePointPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointPermissions = entity
+	partition SPOPermissions = entity
 		mode: directQuery
 		source
 			entityName: SPOPermissions
