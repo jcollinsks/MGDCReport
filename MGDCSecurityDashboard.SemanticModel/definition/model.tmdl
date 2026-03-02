@@ -2,11 +2,8 @@ model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
-	dataAccessOptions
-		legacyRedirects
-		returnErrorValuesAsNull
 
-	annotation PBI_QueryOrder = ["SharePointSites","SharePointFiles","SharePointFileActions","SharePointPermissions","SharePointGroups","DimDate","StorageAccountUrl","ContainerName"]
+	annotation PBI_QueryOrder = ["SharePointSites","SharePointFiles","SharePointFileActions","SharePointPermissions","SharePointGroups","DimDate","LakehouseSQLEndpoint","LakehouseName"]
 
 	annotation PBI_ProTooling = ["DevMode"]
 
