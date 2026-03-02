@@ -1,173 +1,168 @@
 table SPOSites
 	lineageTag: c1a00001-0001-0001-0001-000000000001
 
-	column SiteId
+	column Id
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000101
 		summarizeBy: none
-		sourceColumn: SiteId
+		sourceColumn: Id
 
 		annotation SummarizationSetBy = Automatic
 
-	column SiteUrl
+	column Url
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000102
 		summarizeBy: none
-		sourceColumn: SiteUrl
+		sourceColumn: Url
 
 		annotation SummarizationSetBy = Automatic
 
-	column DisplayName
+	column 'RootWeb.Title'
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000103
 		summarizeBy: none
-		sourceColumn: DisplayName
+		sourceColumn: 'RootWeb.Title'
 
 		annotation SummarizationSetBy = Automatic
 
-	column WebTemplate
+	column 'RootWeb.WebTemplate'
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000104
 		summarizeBy: none
-		sourceColumn: WebTemplate
+		sourceColumn: 'RootWeb.WebTemplate'
 
 		annotation SummarizationSetBy = Automatic
 
-	column CreatedDateTime
+	column CreatedTime
 		dataType: dateTime
 		lineageTag: c1a00001-0001-0001-0001-000000000105
 		summarizeBy: none
-		sourceColumn: CreatedDateTime
+		sourceColumn: CreatedTime
 		formatString: General Date
 
 		annotation SummarizationSetBy = Automatic
 
-	column LastModifiedDateTime
+	column LastContentChange
 		dataType: dateTime
 		lineageTag: c1a00001-0001-0001-0001-000000000106
 		summarizeBy: none
-		sourceColumn: LastModifiedDateTime
+		sourceColumn: LastContentChange
 		formatString: General Date
 
 		annotation SummarizationSetBy = Automatic
 
-	column StorageUsedInBytes
+	column StorageUsed
 		dataType: int64
 		lineageTag: c1a00001-0001-0001-0001-000000000107
 		summarizeBy: none
-		sourceColumn: StorageUsedInBytes
+		sourceColumn: StorageUsed
 
 		annotation SummarizationSetBy = Automatic
 
-	column StorageAllocatedInBytes
+	column StorageQuota
 		dataType: int64
 		lineageTag: c1a00001-0001-0001-0001-000000000108
 		summarizeBy: none
-		sourceColumn: StorageAllocatedInBytes
+		sourceColumn: StorageQuota
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsDeleted
+	column IsInRecycleBin
 		dataType: boolean
 		lineageTag: c1a00001-0001-0001-0001-000000000109
 		summarizeBy: none
-		sourceColumn: IsDeleted
+		sourceColumn: IsInRecycleBin
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 
 		annotation SummarizationSetBy = Automatic
 
-	column SensitivityLabelId
+	column 'SensitivityLabelInfo.Id'
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000110
 		summarizeBy: none
-		sourceColumn: SensitivityLabelId
+		sourceColumn: 'SensitivityLabelInfo.Id'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SensitivityLabelName
+	column 'SensitivityLabelInfo.DisplayName'
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000111
 		summarizeBy: none
-		sourceColumn: SensitivityLabelName
+		sourceColumn: 'SensitivityLabelInfo.DisplayName'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SharingCapability
-		dataType: string
+	column IsExternalSharingEnabled
+		dataType: boolean
 		lineageTag: c1a00001-0001-0001-0001-000000000112
 		summarizeBy: none
-		sourceColumn: SharingCapability
+		sourceColumn: IsExternalSharingEnabled
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 
 		annotation SummarizationSetBy = Automatic
 
-	column ConditionalAccessPolicy
+	column 'Owner.Email'
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000113
 		summarizeBy: none
-		sourceColumn: ConditionalAccessPolicy
+		sourceColumn: 'Owner.Email'
 
 		annotation SummarizationSetBy = Automatic
 
-	column OwnerEmail
+	column 'Owner.Name'
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000114
 		summarizeBy: none
-		sourceColumn: OwnerEmail
-
-		annotation SummarizationSetBy = Automatic
-
-	column OwnerDisplayName
-		dataType: string
-		lineageTag: c1a00001-0001-0001-0001-000000000115
-		summarizeBy: none
-		sourceColumn: OwnerDisplayName
+		sourceColumn: 'Owner.Name'
 
 		annotation SummarizationSetBy = Automatic
 
 	column GroupId
 		dataType: string
-		lineageTag: c1a00001-0001-0001-0001-000000000116
+		lineageTag: c1a00001-0001-0001-0001-000000000115
 		summarizeBy: none
 		sourceColumn: GroupId
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsTeamsConnected
+	column IsTeamsConnectedSite
 		dataType: boolean
-		lineageTag: c1a00001-0001-0001-0001-000000000117
+		lineageTag: c1a00001-0001-0001-0001-000000000116
 		summarizeBy: none
-		sourceColumn: IsTeamsConnected
+		sourceColumn: IsTeamsConnectedSite
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 
 		annotation SummarizationSetBy = Automatic
 
-	column LockState
-		dataType: string
-		lineageTag: c1a00001-0001-0001-0001-000000000118
+	column ReadLocked
+		dataType: boolean
+		lineageTag: c1a00001-0001-0001-0001-000000000117
 		summarizeBy: none
-		sourceColumn: LockState
+		sourceColumn: ReadLocked
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 
 		annotation SummarizationSetBy = Automatic
 
 	column HubSiteId
 		dataType: string
-		lineageTag: c1a00001-0001-0001-0001-000000000119
+		lineageTag: c1a00001-0001-0001-0001-000000000118
 		summarizeBy: none
 		sourceColumn: HubSiteId
 
 		annotation SummarizationSetBy = Automatic
 
-	column DeviceAccessPolicy
-		dataType: string
-		lineageTag: c1a00001-0001-0001-0001-000000000120
+	column BlockAccessFromUnmanagedDevices
+		dataType: boolean
+		lineageTag: c1a00001-0001-0001-0001-000000000119
 		summarizeBy: none
-		sourceColumn: DeviceAccessPolicy
+		sourceColumn: BlockAccessFromUnmanagedDevices
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 
 		annotation SummarizationSetBy = Automatic
 
 	column GeoLocation
 		dataType: string
-		lineageTag: c1a00001-0001-0001-0001-000000000121
+		lineageTag: c1a00001-0001-0001-0001-000000000120
 		summarizeBy: none
 		sourceColumn: GeoLocation
 
@@ -175,56 +170,77 @@ table SPOSites
 
 	column SnapshotDate
 		dataType: dateTime
-		lineageTag: c1a00001-0001-0001-0001-000000000122
+		lineageTag: c1a00001-0001-0001-0001-000000000121
 		summarizeBy: none
 		sourceColumn: SnapshotDate
 		formatString: General Date
 
 		annotation SummarizationSetBy = Automatic
 
+	column LastSecurityModifiedDate
+		dataType: dateTime
+		lineageTag: c1a00001-0001-0001-0001-000000000122
+		summarizeBy: none
+		sourceColumn: LastSecurityModifiedDate
+		formatString: General Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsCommunicationSite
+		dataType: boolean
+		lineageTag: c1a00001-0001-0001-0001-000000000123
+		summarizeBy: none
+		sourceColumn: IsCommunicationSite
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsOneDrive
+		dataType: boolean
+		lineageTag: c1a00001-0001-0001-0001-000000000124
+		summarizeBy: none
+		sourceColumn: IsOneDrive
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+
+		annotation SummarizationSetBy = Automatic
+
+	column Privacy
+		dataType: string
+		lineageTag: c1a00001-0001-0001-0001-000000000125
+		summarizeBy: none
+		sourceColumn: Privacy
+
+		annotation SummarizationSetBy = Automatic
+
 	column CalcSiteRiskScore =
-		VAR _ExternalSharing = IF([SharingCapability] IN {"ExternalUserAndGuestSharing", "ExternalUserSharingOnly"}, 25, 0)
-		VAR _NoLabel = IF(ISBLANK([SensitivityLabelId]), 20, 0)
-		VAR _NoDevicePolicy = IF(ISBLANK([DeviceAccessPolicy]), 15, 0)
-		VAR _Orphaned = IF(ISBLANK([OwnerEmail]), 15, 0)
-		VAR _Stale = IF(DATEDIFF([LastModifiedDateTime], TODAY(), DAY) > 180, 15, 0)
-		VAR _NoConditionalAccess = IF(ISBLANK([ConditionalAccessPolicy]), 10, 0)
-		RETURN _ExternalSharing + _NoLabel + _NoDevicePolicy + _Orphaned + _Stale + _NoConditionalAccess
+		VAR _ExternalSharing = IF([IsExternalSharingEnabled], 25, 0)
+		VAR _NoLabel = IF(ISBLANK([SensitivityLabelInfo.Id]), 20, 0)
+		VAR _NoDevicePolicy = IF(NOT([BlockAccessFromUnmanagedDevices]), 15, 0)
+		VAR _Orphaned = IF(ISBLANK([Owner.Email]), 15, 0)
+		VAR _Stale = IF(DATEDIFF([LastContentChange], TODAY(), DAY) > 180, 15, 0)
+		VAR _ReadLocked = IF([ReadLocked], 10, 0)
+		RETURN _ExternalSharing + _NoLabel + _NoDevicePolicy + _Orphaned + _Stale + _ReadLocked
 		dataType: int64
 		lineageTag: c1a00001-0001-0001-0001-000000000201
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column SiteRiskTier =
-		SWITCH(
-			TRUE(),
-			[CalcSiteRiskScore] >= 75, "Critical",
-			[CalcSiteRiskScore] >= 50, "High",
-			[CalcSiteRiskScore] >= 25, "Medium",
-			"Low"
-		)
+	column SiteRiskTier = SWITCH(TRUE(), [CalcSiteRiskScore] >= 75, "Critical", [CalcSiteRiskScore] >= 50, "High", [CalcSiteRiskScore] >= 25, "Medium", "Low")
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000202
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column SiteType =
-		SWITCH(
-			TRUE(),
-			[WebTemplate] = "SITEPAGEPUBLISHING#0", "Communication",
-			CONTAINSSTRING([SiteUrl], "-my.sharepoint.com"), "Personal",
-			"Team"
-		)
+	column SiteType = SWITCH(TRUE(), [IsOneDrive], "Personal", [IsCommunicationSite], "Communication", "Team")
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000203
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column StorageUsedGB =
-		DIVIDE([StorageUsedInBytes], 1073741824, 0)
+	column StorageUsedGB = DIVIDE([StorageUsed], 1073741824, 0)
 		dataType: double
 		lineageTag: c1a00001-0001-0001-0001-000000000204
 		summarizeBy: none
@@ -232,30 +248,21 @@ table SPOSites
 
 		annotation SummarizationSetBy = Automatic
 
-	column DaysSinceModified =
-		DATEDIFF([LastModifiedDateTime], TODAY(), DAY)
+	column DaysSinceModified = DATEDIFF([LastContentChange], TODAY(), DAY)
 		dataType: int64
 		lineageTag: c1a00001-0001-0001-0001-000000000205
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column ExternalSharingRiskLevel =
-		SWITCH(
-			[SharingCapability],
-			"ExternalUserAndGuestSharing", "Critical",
-			"ExternalUserSharingOnly", "High",
-			"ExistingExternalUserSharingOnly", "Medium",
-			"Low"
-		)
+	column ExternalSharingRiskLevel = IF([IsExternalSharingEnabled], "High", "Low")
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000206
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsOrphaned =
-		ISBLANK([OwnerEmail])
+	column IsOrphaned = ISBLANK([Owner.Email])
 		dataType: boolean
 		lineageTag: c1a00001-0001-0001-0001-000000000207
 		summarizeBy: none
@@ -263,8 +270,7 @@ table SPOSites
 
 		annotation SummarizationSetBy = Automatic
 
-	column HasSensitivityLabel =
-		NOT(ISBLANK([SensitivityLabelId]))
+	column HasSensitivityLabel = NOT(ISBLANK([SensitivityLabelInfo.Id]))
 		dataType: boolean
 		lineageTag: c1a00001-0001-0001-0001-000000000208
 		summarizeBy: none
@@ -272,8 +278,7 @@ table SPOSites
 
 		annotation SummarizationSetBy = Automatic
 
-	column StorageUtilizationPct =
-		DIVIDE([StorageUsedInBytes], [StorageAllocatedInBytes], 0) * 100
+	column StorageUtilizationPct = DIVIDE([StorageUsed], [StorageQuota], 0) * 100
 		dataType: double
 		lineageTag: c1a00001-0001-0001-0001-000000000209
 		summarizeBy: none
@@ -281,22 +286,14 @@ table SPOSites
 
 		annotation SummarizationSetBy = Automatic
 
-	column SiteAgeCategory =
-		SWITCH(
-			TRUE(),
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 90, "New",
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 365, "Recent",
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 730, "Established",
-			"Mature"
-		)
+	column SiteAgeCategory = SWITCH(TRUE(), DATEDIFF([CreatedTime], TODAY(), DAY) < 90, "New", DATEDIFF([CreatedTime], TODAY(), DAY) < 365, "Recent", DATEDIFF([CreatedTime], TODAY(), DAY) < 730, "Established", "Mature")
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000210
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsOverprovisioned =
-		[StorageUtilizationPct] < 5 && [StorageAllocatedInBytes] > 1073741824
+	column IsOverprovisioned = [StorageUtilizationPct] < 5 && [StorageQuota] > 1073741824
 		dataType: boolean
 		lineageTag: c1a00001-0001-0001-0001-000000000211
 		summarizeBy: none

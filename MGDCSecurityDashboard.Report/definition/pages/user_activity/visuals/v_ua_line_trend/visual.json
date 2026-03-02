@@ -11,10 +11,10 @@
             "field": {
               "Column": {
                 "Expression": {"SourceRef": {"Entity": "SPOFileActions"}},
-                "Property": "ActionDateTime"
+                "Property": "ActionDate"
               }
             },
-            "queryRef": "SPOFileActions.ActionDateTime",
+            "queryRef": "SPOFileActions.ActionDate",
             "active": true
           }]
         },

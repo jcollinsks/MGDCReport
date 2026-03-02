@@ -14,13 +14,13 @@ table _Measures
 		lineageTag: m1a00101-0001-0001-0001-000000000002
 
 	measure 'Total Storage TB' =
-			DIVIDE(SUM(SPOFiles[FileSizeInBytes]), 1099511627776, 0)
+			DIVIDE(SUM(SPOFiles[SizeInBytes]), 1099511627776, 0)
 		formatString: 0.00
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000003
 
 	measure 'Total Users' =
-			DISTINCTCOUNT(SPOFileActions[UserId])
+			DISTINCTCOUNT(SPOFileActions[ActorEmail])
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000004
@@ -65,7 +65,7 @@ table _Measures
 		lineageTag: m1a00101-0001-0001-0001-000000000010
 
 	measure 'Sites External Sharing' =
-			CALCULATE(COUNTROWS(SPOSites), SPOSites[SharingCapability] <> "Disabled")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[IsExternalSharingEnabled] = TRUE())
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000011
@@ -95,7 +95,7 @@ table _Measures
 		lineageTag: m1a00201-0002-0002-0002-000000000003
 
 	measure 'Direct Access Permissions' =
-			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[LinkType] = "DirectAccess")
+			CALCULATE(COUNTROWS(SPOPermissions), ISBLANK(SPOPermissions[LinkScope]))
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000004
@@ -133,14 +133,14 @@ table _Measures
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000009
 
-	measure 'External Recipients' =
-			CALCULATE(DISTINCTCOUNT(SPOPermissions[GrantedToEmail]), SPOPermissions[IsExternalShare] = TRUE())
+	measure 'External Link Users' =
+			CALCULATE(SUM(SPOPermissions[TotalUserCount]), SPOPermissions[LinkScope] = "Anyone")
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000010
 
 	measure 'Files with Anonymous Access' =
-			CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), SPOPermissions[IsAnonymousLink] = TRUE())
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[ListItemId]), SPOPermissions[IsAnonymousLink] = TRUE())
 		formatString: #,##0
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000011
@@ -194,7 +194,7 @@ table _Measures
 		lineageTag: m1a00301-0003-0003-0003-000000000005
 
 	measure 'Avg Permissions Per File' =
-			DIVIDE(COUNTROWS(SPOPermissions), DISTINCTCOUNT(SPOPermissions[FileId]), 0)
+			DIVIDE(COUNTROWS(SPOPermissions), DISTINCTCOUNT(SPOPermissions[ListItemId]), 0)
 		formatString: 0.0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000006
@@ -211,32 +211,32 @@ table _Measures
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000008
 
-	measure 'Broken Inheritance Count' =
-			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsInherited] = FALSE())
+	measure 'Total Shared Users' =
+			SUM(SPOPermissions[TotalUserCount])
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000009
 
-	measure 'Direct Permission Count' =
-			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsInherited] = FALSE())
+	measure 'Specific People Links' =
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[LinkScope] = "SpecificPeople")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000010
 
-	measure 'Inherited Permission Count' =
-			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[IsInherited] = TRUE())
+	measure 'File Permissions' =
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[ItemType] = "File")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000011
 
-	measure 'Unique Grantees' =
-			DISTINCTCOUNT(SPOPermissions[GrantedToEmail])
+	measure 'Folder Permissions' =
+			CALCULATE(COUNTROWS(SPOPermissions), SPOPermissions[ItemType] = "Folder")
 		formatString: #,##0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000012
 
-	measure 'Inherited Pct' =
-			DIVIDE([Inherited Permission Count], [Total Permissions], 0) * 100
+	measure 'Avg Users Per Permission' =
+			DIVIDE(SUM(SPOPermissions[TotalUserCount]), COUNTROWS(SPOPermissions), 0)
 		formatString: 0.0
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000013
@@ -302,7 +302,7 @@ table _Measures
 		lineageTag: m1a00401-0004-0004-0004-000000000009
 
 	measure 'Sensitive Externally Shared' =
-			CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), FILTER(VALUES(SPOPermissions[FileId]), CALCULATE(MAX(SPOFiles[HasSensitivityLabel])) = TRUE()), SPOPermissions[IsExternalShare] = TRUE())
+			CALCULATE(DISTINCTCOUNT(SPOPermissions[ListItemId]), FILTER(VALUES(SPOPermissions[ListItemId]), CALCULATE(MAX(SPOFiles[HasSensitivityLabel])) = TRUE()), SPOPermissions[IsExternalShare] = TRUE())
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000010
@@ -380,7 +380,7 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000010
 
 	measure 'Unique IPs' =
-			DISTINCTCOUNT(SPOFileActions[IPAddress])
+			DISTINCTCOUNT(SPOFileActions[ClientIP])
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000011
@@ -398,7 +398,7 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000013
 
 	measure 'Unique Active Users' =
-			DISTINCTCOUNT(SPOFileActions[UserId])
+			DISTINCTCOUNT(SPOFileActions[ActorEmail])
 		formatString: #,##0
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000014
@@ -416,7 +416,7 @@ table _Measures
 		lineageTag: m1a00501-0005-0005-0005-000000000016
 
 	measure 'Sites No Device Policy' =
-			CALCULATE(COUNTROWS(SPOSites), ISBLANK(SPOSites[DeviceAccessPolicy]))
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[BlockAccessFromUnmanagedDevices] = FALSE())
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000001
@@ -428,13 +428,13 @@ table _Measures
 		lineageTag: m1a00601-0006-0006-0006-000000000002
 
 	measure 'Locked Sites' =
-			CALCULATE(COUNTROWS(SPOSites), SPOSites[LockState] <> "Unlock", NOT(ISBLANK(SPOSites[LockState])))
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[ReadLocked] = TRUE())
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000003
 
-	measure 'Sites Missing Conditional Access' =
-			CALCULATE(COUNTROWS(SPOSites), ISBLANK(SPOSites[ConditionalAccessPolicy]))
+	measure 'Teams Connected Sites' =
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[IsTeamsConnectedSite] = TRUE())
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000004
@@ -446,7 +446,7 @@ table _Measures
 		lineageTag: m1a00601-0006-0006-0006-000000000005
 
 	measure 'External Sharing Enabled Sites' =
-			CALCULATE(COUNTROWS(SPOSites), SPOSites[SharingCapability] <> "Disabled")
+			CALCULATE(COUNTROWS(SPOSites), SPOSites[IsExternalSharingEnabled] = TRUE())
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000006
@@ -481,8 +481,8 @@ table _Measures
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000001
 
-	measure 'External Members' =
-			SUM(SPOGroups[ExternalMemberCount])
+	measure 'Security Groups' =
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupType] = "SecurityGroup")
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000002
@@ -493,21 +493,21 @@ table _Measures
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000003
 
-	measure 'Overlarge Groups' =
-			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[IsOverlarge] = TRUE())
+	measure 'M365 Groups' =
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupType] = "M365Group")
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000004
 
-	measure 'Security Groups with External' =
-			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupType] = "SecurityGroup", SPOGroups[ExternalMemberCount] > 0)
+	measure 'SharePoint Groups' =
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupType] = "SharePointGroup")
 		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000005
 
-	measure 'Avg Group Size' =
-			AVERAGE(SPOGroups[MemberCount])
-		formatString: 0.0
+	measure 'Critical Risk Groups' =
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupRiskLevel] = "Critical")
+		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000006
 
@@ -517,9 +517,9 @@ table _Measures
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000007
 
-	measure 'External Member Pct Overall' =
-			DIVIDE([External Members], SUM(SPOGroups[MemberCount]), 0) * 100
-		formatString: 0.0
+	measure 'High Risk Groups' =
+			CALCULATE(COUNTROWS(SPOGroups), SPOGroups[GroupRiskLevel] = "High")
+		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000008
 
@@ -529,20 +529,20 @@ table _Measures
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000009
 
-	measure 'Overlarge Pct' =
-			DIVIDE([Overlarge Groups], [Total Groups], 0) * 100
-		formatString: 0.0
+	measure 'Unique Site Groups' =
+			DISTINCTCOUNT(SPOGroups[SiteId])
+		formatString: #,##0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000010
 
-	measure 'Avg External Pct Per Group' =
-			AVERAGE(SPOGroups[ExternalMemberPct])
+	measure 'Avg Groups Per Site' =
+			DIVIDE(COUNTROWS(SPOGroups), DISTINCTCOUNT(SPOGroups[SiteId]), 0)
 		formatString: 0.0
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000011
 
 	measure 'Total Version Storage TB' =
-			DIVIDE(SUM(SPOFiles[VersionStorageInBytes]), 1099511627776, 0)
+			DIVIDE(SUM(SPOFiles[SizeInBytesWithVersions]) - SUM(SPOFiles[SizeInBytes]), 1099511627776, 0)
 		formatString: 0.00
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000001
@@ -560,13 +560,13 @@ table _Measures
 		lineageTag: m1a00801-0008-0008-0008-000000000003
 
 	measure 'Reclaimable Storage GB' =
-			DIVIDE(CALCULATE(SUM(SPOFiles[VersionStorageInBytes]), SPOFiles[VersionBloatRatio] > 5), 1073741824, 0)
+			DIVIDE(SUMX(FILTER(SPOFiles, SPOFiles[VersionBloatRatio] > 5), [SizeInBytesWithVersions] - [SizeInBytes]), 1073741824, 0)
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000004
 
 	measure 'Unique File Types' =
-			DISTINCTCOUNT(SPOFiles[FileExtension])
+			DISTINCTCOUNT(SPOFiles[Extension])
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000005
@@ -590,19 +590,19 @@ table _Measures
 		lineageTag: m1a00801-0008-0008-0008-000000000008
 
 	measure 'Excessive Version Files' =
-			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[VersionCount] > 100)
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[MajorVersion] > 100)
 		formatString: #,##0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000009
 
 	measure 'Avg Versions Per File' =
-			AVERAGE(SPOFiles[VersionCount])
+			AVERAGE(SPOFiles[MajorVersion])
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000010
 
 	measure 'Storage Efficiency Score' =
-			100 - (DIVIDE(SUM(SPOFiles[VersionStorageInBytes]), SUM(SPOFiles[FileSizeInBytes]) + SUM(SPOFiles[VersionStorageInBytes]), 0) * 100)
+			100 - (DIVIDE(SUM(SPOFiles[SizeInBytesWithVersions]) - SUM(SPOFiles[SizeInBytes]), SUM(SPOFiles[SizeInBytesWithVersions]), 0) * 100)
 		formatString: 0.0
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000011
@@ -650,7 +650,7 @@ table _Measures
 		lineageTag: m1a00901-0009-0009-0009-000000000007
 
 	measure 'Stale Storage TB' =
-			DIVIDE(CALCULATE(SUM(SPOFiles[FileSizeInBytes]), SPOFiles[IsStale] = TRUE()), 1099511627776, 0)
+			DIVIDE(CALCULATE(SUM(SPOFiles[SizeInBytes]), SPOFiles[IsStale] = TRUE()), 1099511627776, 0)
 		formatString: 0.00
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000008
@@ -708,8 +708,8 @@ table _Measures
 		lineageTag: m1a01001-0010-0010-0010-000000000006
 
 	measure 'Data Exposure Score' =
-			VAR AnonFiles = CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), SPOPermissions[IsAnonymousLink] = TRUE())
-			VAR ExtFiles = CALCULATE(DISTINCTCOUNT(SPOPermissions[FileId]), SPOPermissions[IsExternalShare] = TRUE())
+			VAR AnonFiles = CALCULATE(DISTINCTCOUNT(SPOPermissions[ListItemId]), SPOPermissions[IsAnonymousLink] = TRUE())
+			VAR ExtFiles = CALCULATE(DISTINCTCOUNT(SPOPermissions[ListItemId]), SPOPermissions[IsExternalShare] = TRUE())
 			VAR TotalFiles = COUNTROWS(SPOFiles)
 			RETURN DIVIDE(AnonFiles * 3 + ExtFiles, TotalFiles, 0) * 100
 		formatString: 0.0

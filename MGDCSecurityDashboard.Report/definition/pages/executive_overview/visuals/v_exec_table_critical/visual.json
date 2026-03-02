@@ -12,19 +12,19 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOSites"}},
-                  "Property": "DisplayName"
+                  "Property": "RootWeb.Title"
                 }
               },
-              "queryRef": "SPOSites.DisplayName"
+              "queryRef": "SPOSites.RootWeb.Title"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOSites"}},
-                  "Property": "SiteUrl"
+                  "Property": "Url"
                 }
               },
-              "queryRef": "SPOSites.SiteUrl"
+              "queryRef": "SPOSites.Url"
             },
             {
               "field": {
@@ -48,10 +48,10 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOSites"}},
-                  "Property": "SharingCapability"
+                  "Property": "IsExternalSharingEnabled"
                 }
               },
-              "queryRef": "SPOSites.SharingCapability"
+              "queryRef": "SPOSites.IsExternalSharingEnabled"
             },
             {
               "field": {

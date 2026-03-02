@@ -9,8 +9,8 @@
         "Values": {
           "projections": [
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "GrantedToEmail"}},
-              "queryRef": "SPOPermissions.GrantedToEmail"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "ShareCreatedBy.Email"}},
+              "queryRef": "SPOPermissions.ShareCreatedBy.Email"
             },
             {
               "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOPermissions"}}, "Property": "LinkCategory"}},

@@ -12,19 +12,19 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOSites"}},
-                  "Property": "DisplayName"
+                  "Property": "RootWeb.Title"
                 }
               },
-              "queryRef": "SPOSites.DisplayName"
+              "queryRef": "SPOSites.RootWeb.Title"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
-                  "Property": "GrantedToEmail"
+                  "Property": "ShareCreatedBy.Email"
                 }
               },
-              "queryRef": "SPOPermissions.GrantedToEmail"
+              "queryRef": "SPOPermissions.ShareCreatedBy.Email"
             },
             {
               "field": {

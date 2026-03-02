@@ -12,10 +12,10 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOFileActions"}},
-                  "Property": "UserId"
+                  "Property": "ActorEmail"
                 }
               },
-              "queryRef": "SPOFileActions.UserId"
+              "queryRef": "SPOFileActions.ActorEmail"
             },
             {
               "field": {

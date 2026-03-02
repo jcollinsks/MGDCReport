@@ -11,10 +11,10 @@
             "field": {
               "Measure": {
                 "Expression": {"SourceRef": {"Entity": "_Measures"}},
-                "Property": "External Members"
+                "Property": "Security Groups"
               }
             },
-            "queryRef": "_Measures.External Members"
+            "queryRef": "_Measures.Security Groups"
           }]
         }
       }
@@ -25,7 +25,7 @@
     "visualContainerObjects": {
       "title": [{"properties": {
         "show": {"expr": {"Literal": {"Value": "true"}}},
-        "text": {"expr": {"Literal": {"Value": "'External Members'"}}}
+        "text": {"expr": {"Literal": {"Value": "'Security Groups'"}}}
       }}]
     }
   }

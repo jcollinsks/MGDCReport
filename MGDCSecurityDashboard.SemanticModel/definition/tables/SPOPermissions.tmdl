@@ -1,16 +1,6 @@
 table SPOPermissions
 	lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678902
 
-	/// Primary key for permission records
-	column PermissionId
-		dataType: string
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678910
-		summarizeBy: none
-		sourceColumn: PermissionId
-
-		annotation SummarizationSetBy = Automatic
-
-	/// FK to Sites dimension
 	column SiteId
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678911
@@ -19,43 +9,62 @@ table SPOPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// FK to Files dimension (nullable for site-level permissions)
-	column FileId
+	column WebId
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678930
+		summarizeBy: none
+		sourceColumn: WebId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListId
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678931
+		summarizeBy: none
+		sourceColumn: ListId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListItemId
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678912
 		summarizeBy: none
-		sourceColumn: FileId
+		sourceColumn: ListItemId
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Email of the grantee
-	column GrantedToEmail
+	column UniqueId
 		dataType: string
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678913
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678910
 		summarizeBy: none
-		sourceColumn: GrantedToEmail
+		sourceColumn: UniqueId
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Display name of the grantee
-	column GrantedToDisplayName
+	column ItemType
 		dataType: string
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678914
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678932
 		summarizeBy: none
-		sourceColumn: GrantedToDisplayName
+		sourceColumn: ItemType
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Type of principal: User, Group, SecurityGroup, Everyone, Anonymous
-	column GrantedToType
+	column ItemURL
 		dataType: string
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678915
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678933
 		summarizeBy: none
-		sourceColumn: GrantedToType
+		sourceColumn: ItemURL
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Permission level: Read, Write, Full Control, Contribute, Edit, View Only
+	column FileExtension
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678934
+		summarizeBy: none
+		sourceColumn: FileExtension
+
+		annotation SummarizationSetBy = Automatic
+
 	column RoleDefinition
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678916
@@ -64,16 +73,22 @@ table SPOPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Type of sharing link used
-	column LinkType
+	column LinkId
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678917
 		summarizeBy: none
-		sourceColumn: LinkType
+		sourceColumn: LinkId
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Scope of the sharing link: Anyone, Organization, SpecificPeople
+	column ScopeId
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678935
+		summarizeBy: none
+		sourceColumn: ScopeId
+
+		annotation SummarizationSetBy = Automatic
+
 	column LinkScope
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678918
@@ -82,76 +97,106 @@ table SPOPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// When the permission was created
-	column CreatedDateTime
-		dataType: dateTime
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678919
+	column TotalUserCount
+		dataType: int64
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678936
 		summarizeBy: none
-		sourceColumn: CreatedDateTime
+		sourceColumn: TotalUserCount
 
 		annotation SummarizationSetBy = Automatic
 
-	/// When the permission expires (nullable)
-	column ExpirationDateTime
-		dataType: dateTime
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891a
-		summarizeBy: none
-		sourceColumn: ExpirationDateTime
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Whether permission is inherited from parent
-	column IsInherited
-		dataType: boolean
-		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891b
-		summarizeBy: none
-		sourceColumn: IsInherited
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Email of the user who shared
-	column SharedBy
+	column 'ShareCreatedBy.Email'
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891c
 		summarizeBy: none
-		sourceColumn: SharedBy
+		sourceColumn: 'ShareCreatedBy.Email'
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Date of the MGDC snapshot
+	column 'ShareCreatedBy.Name'
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678937
+		summarizeBy: none
+		sourceColumn: 'ShareCreatedBy.Name'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShareCreatedTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678919
+		summarizeBy: none
+		sourceColumn: ShareCreatedTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShareLastModifiedBy.Email'
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678938
+		summarizeBy: none
+		sourceColumn: 'ShareLastModifiedBy.Email'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ShareLastModifiedBy.Name'
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678939
+		summarizeBy: none
+		sourceColumn: 'ShareLastModifiedBy.Name'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShareLastModifiedTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567893a
+		summarizeBy: none
+		sourceColumn: ShareLastModifiedTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShareExpirationTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891a
+		summarizeBy: none
+		sourceColumn: ShareExpirationTime
+
+		annotation SummarizationSetBy = Automatic
+
 	column SnapshotDate
 		dataType: dateTime
+		formatString: General Date
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891d
 		summarizeBy: none
 		sourceColumn: SnapshotDate
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if the link is accessible by anyone (anonymous)
-	column IsAnonymousLink = [LinkScope] = "Anyone" || [GrantedToType] = "Anonymous"
+	column IsAnonymousLink = [LinkScope] = "Anyone"
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678920
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if shared externally or with everyone
-	column IsExternalShare = [GrantedToType] IN {"Everyone", "Anonymous"} || CONTAINSSTRING([GrantedToEmail], "#ext#")
+	column IsExternalShare = [LinkScope] = "Anyone"
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678921
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if no expiration date is set
-	column HasNoExpiration = ISBLANK([ExpirationDateTime])
+	column HasNoExpiration = ISBLANK([ShareExpirationTime])
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678922
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Risk level: Critical, High, Medium, Low
 	column PermissionRiskLevel =
 			SWITCH(
 				TRUE(),
@@ -167,7 +212,6 @@ table SPOPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Numeric risk score: Critical=100, High=75, Medium=50, Low=25
 	column PermissionRiskScore = SWITCH([PermissionRiskLevel], "Critical", 100, "High", 75, "Medium", 50, 25)
 		dataType: int64
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678924
@@ -175,22 +219,21 @@ table SPOPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if overprivileged: write/full control via anonymous or external link
-	column IsOverprivileged = [RoleDefinition] IN {"Full Control", "Write"} && ([IsAnonymousLink] || [IsExternalShare])
+	column IsOverprivileged = [RoleDefinition] IN {"Full Control", "Write"} && [IsAnonymousLink]
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678925
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Age bucket: New, Recent, Standard, Old, Ancient
 	column PermissionAgeCategory =
 			SWITCH(
 				TRUE(),
-				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 30, "New",
-				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 90, "Recent",
-				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 365, "Standard",
-				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 730, "Old",
+				DATEDIFF([ShareCreatedTime], TODAY(), DAY) < 30, "New",
+				DATEDIFF([ShareCreatedTime], TODAY(), DAY) < 90, "Recent",
+				DATEDIFF([ShareCreatedTime], TODAY(), DAY) < 365, "Standard",
+				DATEDIFF([ShareCreatedTime], TODAY(), DAY) < 730, "Old",
 				"Ancient"
 			)
 		dataType: string
@@ -199,32 +242,29 @@ table SPOPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Number of days since permission was created
-	column PermissionAgeDays = DATEDIFF([CreatedDateTime], TODAY(), DAY)
+	column PermissionAgeDays = DATEDIFF([ShareCreatedTime], TODAY(), DAY)
 		dataType: int64
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678927
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Days remaining until the permission expires (blank if no expiry)
-	column DaysUntilExpiry = IF(ISBLANK([ExpirationDateTime]), BLANK(), DATEDIFF(TODAY(), [ExpirationDateTime], DAY))
+	column DaysUntilExpiry = IF(ISBLANK([ShareExpirationTime]), BLANK(), DATEDIFF(TODAY(), [ShareExpirationTime], DAY))
 		dataType: int64
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678928
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if permission expires within 30 days
-	column IsExpiringSoon = NOT(ISBLANK([ExpirationDateTime])) && [DaysUntilExpiry] <= 30 && [DaysUntilExpiry] > 0
+	column IsExpiringSoon = NOT(ISBLANK([ShareExpirationTime])) && [DaysUntilExpiry] <= 30 && [DaysUntilExpiry] > 0
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678929
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Normalized link category (Direct if no link type)
-	column LinkCategory = IF(ISBLANK([LinkType]), "Direct", [LinkType])
+	column LinkCategory = IF(ISBLANK([LinkScope]), "Direct", [LinkScope])
 		dataType: string
 		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567892a
 		summarizeBy: none
@@ -236,4 +276,3 @@ table SPOPermissions
 		source
 			entityName: SPOPermissions
 			expressionSource: 'DirectQuery to AS - MGDC'
-

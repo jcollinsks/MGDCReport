@@ -12,10 +12,10 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOSites"}},
-                  "Property": "DisplayName"
+                  "Property": "RootWeb.Title"
                 }
               },
-              "queryRef": "SPOSites.DisplayName"
+              "queryRef": "SPOSites.RootWeb.Title"
             },
             {
               "field": {

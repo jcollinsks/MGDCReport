@@ -11,10 +11,10 @@
             "field": {
               "Column": {
                 "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
-                "Property": "GrantedToType"
+                "Property": "ItemType"
               }
             },
-            "queryRef": "SPOPermissions.GrantedToType",
+            "queryRef": "SPOPermissions.ItemType",
             "active": true
           }]
         },

@@ -8,15 +8,15 @@
       "queryState": {
         "Category": {
           "projections": [{
-            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupName"}},
-            "queryRef": "SPOGroups.GroupName",
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "DisplayName"}},
+            "queryRef": "SPOGroups.DisplayName",
             "active": true
           }]
         },
         "Y": {
           "projections": [{
-            "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": "Avg External Pct Per Group"}},
-            "queryRef": "_Measures.Avg External Pct Per Group"
+            "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": "Avg Groups Per Site"}},
+            "queryRef": "_Measures.Avg Groups Per Site"
           }]
         }
       }

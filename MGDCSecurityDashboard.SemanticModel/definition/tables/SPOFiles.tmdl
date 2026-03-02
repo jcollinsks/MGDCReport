@@ -1,19 +1,19 @@
 table SPOFiles
 	lineageTag: c1a00002-0001-0001-0001-000000000001
 
-	column FileId
+	column SiteId
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000101
 		summarizeBy: none
-		sourceColumn: FileId
+		sourceColumn: SiteId
 
 		annotation SummarizationSetBy = Automatic
 
-	column SiteId
+	column ItemId
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000102
 		summarizeBy: none
-		sourceColumn: SiteId
+		sourceColumn: ItemId
 
 		annotation SummarizationSetBy = Automatic
 
@@ -25,132 +25,163 @@ table SPOFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	column FileExtension
+	column Extension
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000104
 		summarizeBy: none
-		sourceColumn: FileExtension
+		sourceColumn: Extension
 
 		annotation SummarizationSetBy = Automatic
 
-	column FileSizeInBytes
+	column SizeInBytes
 		dataType: int64
 		lineageTag: c1a00002-0001-0001-0001-000000000105
 		summarizeBy: none
-		sourceColumn: FileSizeInBytes
+		sourceColumn: SizeInBytes
 
 		annotation SummarizationSetBy = Automatic
 
-	column CreatedDateTime
-		dataType: dateTime
+	column SizeInBytesWithVersions
+		dataType: int64
 		lineageTag: c1a00002-0001-0001-0001-000000000106
 		summarizeBy: none
-		sourceColumn: CreatedDateTime
-		formatString: General Date
+		sourceColumn: SizeInBytesWithVersions
 
 		annotation SummarizationSetBy = Automatic
 
-	column LastModifiedDateTime
+	column TimeCreated
 		dataType: dateTime
 		lineageTag: c1a00002-0001-0001-0001-000000000107
 		summarizeBy: none
-		sourceColumn: LastModifiedDateTime
+		sourceColumn: TimeCreated
 		formatString: General Date
 
 		annotation SummarizationSetBy = Automatic
 
-	column CreatedBy
-		dataType: string
+	column TimeLastModified
+		dataType: dateTime
 		lineageTag: c1a00002-0001-0001-0001-000000000108
 		summarizeBy: none
-		sourceColumn: CreatedBy
+		sourceColumn: TimeLastModified
+		formatString: General Date
 
 		annotation SummarizationSetBy = Automatic
 
-	column LastModifiedBy
+	column 'Author.Email'
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000109
 		summarizeBy: none
-		sourceColumn: LastModifiedBy
+		sourceColumn: 'Author.Email'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SensitivityLabelId
+	column 'Author.Name'
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000110
 		summarizeBy: none
-		sourceColumn: SensitivityLabelId
+		sourceColumn: 'Author.Name'
 
 		annotation SummarizationSetBy = Automatic
 
-	column SensitivityLabelName
+	column 'ModifiedBy.Email'
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000111
 		summarizeBy: none
-		sourceColumn: SensitivityLabelName
+		sourceColumn: 'ModifiedBy.Email'
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsEncrypted
-		dataType: boolean
+	column 'ModifiedBy.Name'
+		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000112
 		summarizeBy: none
-		sourceColumn: IsEncrypted
+		sourceColumn: 'ModifiedBy.Name'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SensitivityLabelInfo.Id'
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000113
+		summarizeBy: none
+		sourceColumn: 'SensitivityLabelInfo.Id'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SensitivityLabelInfo.DisplayName'
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000114
+		summarizeBy: none
+		sourceColumn: 'SensitivityLabelInfo.DisplayName'
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsLabelEncrypted
+		dataType: boolean
+		lineageTag: c1a00002-0001-0001-0001-000000000115
+		summarizeBy: none
+		sourceColumn: IsLabelEncrypted
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 
 		annotation SummarizationSetBy = Automatic
 
-	column ContentType
-		dataType: string
-		lineageTag: c1a00002-0001-0001-0001-000000000113
-		summarizeBy: none
-		sourceColumn: ContentType
-
-		annotation SummarizationSetBy = Automatic
-
-	column VersionCount
+	column MajorVersion
 		dataType: int64
-		lineageTag: c1a00002-0001-0001-0001-000000000114
-		summarizeBy: none
-		sourceColumn: VersionCount
-
-		annotation SummarizationSetBy = Automatic
-
-	column VersionStorageInBytes
-		dataType: int64
-		lineageTag: c1a00002-0001-0001-0001-000000000115
-		summarizeBy: none
-		sourceColumn: VersionStorageInBytes
-
-		annotation SummarizationSetBy = Automatic
-
-	column ListItemUrl
-		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000116
 		summarizeBy: none
-		sourceColumn: ListItemUrl
+		sourceColumn: MajorVersion
 
 		annotation SummarizationSetBy = Automatic
 
-	column ParentFolderPath
-		dataType: string
+	column MinorVersion
+		dataType: int64
 		lineageTag: c1a00002-0001-0001-0001-000000000117
 		summarizeBy: none
-		sourceColumn: ParentFolderPath
+		sourceColumn: MinorVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column DirName
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000118
+		summarizeBy: none
+		sourceColumn: DirName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteUrl
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000119
+		summarizeBy: none
+		sourceColumn: SiteUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column WebId
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000120
+		summarizeBy: none
+		sourceColumn: WebId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListId
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000121
+		summarizeBy: none
+		sourceColumn: ListId
 
 		annotation SummarizationSetBy = Automatic
 
 	column SnapshotDate
 		dataType: dateTime
-		lineageTag: c1a00002-0001-0001-0001-000000000118
+		lineageTag: c1a00002-0001-0001-0001-000000000122
 		summarizeBy: none
 		sourceColumn: SnapshotDate
 		formatString: General Date
 
 		annotation SummarizationSetBy = Automatic
 
-	column FileSizeMB =
-		DIVIDE([FileSizeInBytes], 1048576, 0)
+	column FileSizeMB = DIVIDE([SizeInBytes], 1048576, 0)
 		dataType: double
 		lineageTag: c1a00002-0001-0001-0001-000000000201
 		summarizeBy: none
@@ -158,16 +189,7 @@ table SPOFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	column FileCategory =
-		SWITCH(
-			TRUE(),
-			[FileExtension] IN {".docx", ".doc", ".odt", ".rtf"}, "Documents",
-			[FileExtension] IN {".xlsx", ".xls", ".csv"}, "Spreadsheets",
-			[FileExtension] IN {".pptx", ".ppt"}, "Presentations",
-			[FileExtension] IN {".pdf"}, "PDFs",
-			[FileExtension] IN {".jpg", ".png", ".gif", ".bmp", ".svg"}, "Images",
-			"Other"
-		)
+	column FileCategory = SWITCH(TRUE(), [Extension] IN {".docx", ".doc", ".odt", ".rtf"}, "Documents", [Extension] IN {".xlsx", ".xls", ".csv"}, "Spreadsheets", [Extension] IN {".pptx", ".ppt"}, "Presentations", [Extension] IN {".pdf"}, "PDFs", [Extension] IN {".jpg", ".png", ".gif", ".bmp", ".svg"}, "Images", "Other")
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000202
 		summarizeBy: none
@@ -175,21 +197,14 @@ table SPOFiles
 		annotation SummarizationSetBy = Automatic
 
 	column SecurityStatus =
-		SWITCH(
-			TRUE(),
-			[HasSensitivityLabel] && [IsEncrypted], "Protected",
-			[IsEncrypted], "Encrypted Only",
-			[HasSensitivityLabel], "Labeled Only",
-			"Unprotected"
-		)
+		SWITCH(TRUE(), [HasSensitivityLabel] && [IsLabelEncrypted], "Protected", [IsLabelEncrypted], "Encrypted Only", [HasSensitivityLabel], "Labeled Only", "Unprotected")
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000203
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column HasSensitivityLabel =
-		NOT(ISBLANK([SensitivityLabelId]))
+	column HasSensitivityLabel = NOT(ISBLANK([SensitivityLabelInfo.Id]))
 		dataType: boolean
 		lineageTag: c1a00002-0001-0001-0001-000000000204
 		summarizeBy: none
@@ -197,23 +212,14 @@ table SPOFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	column FileAgeCategory =
-		SWITCH(
-			TRUE(),
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 30, "New",
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 90, "Recent",
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 365, "Standard",
-			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 730, "Old",
-			"Ancient"
-		)
+	column FileAgeCategory = SWITCH(TRUE(), DATEDIFF([TimeCreated], TODAY(), DAY) < 30, "New", DATEDIFF([TimeCreated], TODAY(), DAY) < 90, "Recent", DATEDIFF([TimeCreated], TODAY(), DAY) < 365, "Standard", DATEDIFF([TimeCreated], TODAY(), DAY) < 730, "Old", "Ancient")
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000205
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsLargeFile =
-		[FileSizeInBytes] > 104857600
+	column IsLargeFile = [SizeInBytes] > 104857600
 		dataType: boolean
 		lineageTag: c1a00002-0001-0001-0001-000000000206
 		summarizeBy: none
@@ -221,8 +227,7 @@ table SPOFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	column VersionBloatRatio =
-		DIVIDE([VersionStorageInBytes], [FileSizeInBytes], 0)
+	column VersionBloatRatio = DIVIDE([SizeInBytesWithVersions], [SizeInBytes], 0)
 		dataType: double
 		lineageTag: c1a00002-0001-0001-0001-000000000207
 		summarizeBy: none
@@ -230,16 +235,14 @@ table SPOFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	column DaysSinceModified =
-		DATEDIFF([LastModifiedDateTime], TODAY(), DAY)
+	column DaysSinceModified = DATEDIFF([TimeLastModified], TODAY(), DAY)
 		dataType: int64
 		lineageTag: c1a00002-0001-0001-0001-000000000208
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	column IsStale =
-		[DaysSinceModified] > 180
+	column IsStale = [DaysSinceModified] > 180
 		dataType: boolean
 		lineageTag: c1a00002-0001-0001-0001-000000000209
 		summarizeBy: none
@@ -248,12 +251,12 @@ table SPOFiles
 		annotation SummarizationSetBy = Automatic
 
 	column FileRiskScore =
-		VAR _NoLabel = IF(ISBLANK([SensitivityLabelId]), 30, 0)
-		VAR _NoEncryption = IF(NOT([IsEncrypted]), 20, 0)
-		VAR _Stale = IF(DATEDIFF([LastModifiedDateTime], TODAY(), DAY) > 180, 15, 0)
-		VAR _LargeFile = IF([FileSizeInBytes] > 104857600, 10, 0)
-		VAR _VersionBloat = IF(DIVIDE([VersionStorageInBytes], [FileSizeInBytes], 0) > 10, 15, 0)
-		VAR _ExternalPath = IF(CONTAINSSTRING([ParentFolderPath], "/External/") || CONTAINSSTRING([ParentFolderPath], "/Shared with Everyone/"), 10, 0)
+		VAR _NoLabel = IF(ISBLANK([SensitivityLabelInfo.Id]), 30, 0)
+		VAR _NoEncryption = IF(NOT([IsLabelEncrypted]), 20, 0)
+		VAR _Stale = IF(DATEDIFF([TimeLastModified], TODAY(), DAY) > 180, 15, 0)
+		VAR _LargeFile = IF([SizeInBytes] > 104857600, 10, 0)
+		VAR _VersionBloat = IF(DIVIDE([SizeInBytesWithVersions], [SizeInBytes], 0) > 10, 15, 0)
+		VAR _ExternalPath = IF(CONTAINSSTRING([DirName], "/External/") || CONTAINSSTRING([DirName], "/Shared with Everyone/"), 10, 0)
 		RETURN _NoLabel + _NoEncryption + _Stale + _LargeFile + _VersionBloat + _ExternalPath
 		dataType: int64
 		lineageTag: c1a00002-0001-0001-0001-000000000210

@@ -11,10 +11,10 @@
             "field": {
               "Measure": {
                 "Expression": {"SourceRef": {"Entity": "_Measures"}},
-                "Property": "Sites Missing Conditional Access"
+                "Property": "Teams Connected Sites"
               }
             },
-            "queryRef": "_Measures.Sites Missing Conditional Access"
+            "queryRef": "_Measures.Teams Connected Sites"
           }]
         }
       }

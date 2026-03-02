@@ -1,16 +1,6 @@
 table SPOFileActions
 	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567801
 
-	/// Primary key for file action events
-	column ActionId
-		dataType: string
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567810
-		summarizeBy: none
-		sourceColumn: ActionId
-
-		annotation SummarizationSetBy = Automatic
-
-	/// FK to Sites dimension
 	column SiteId
 		dataType: string
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567811
@@ -19,70 +9,111 @@ table SPOFileActions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// FK to Files dimension
-	column FileId
+	column SiteUrl
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567830
+		summarizeBy: none
+		sourceColumn: SiteUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column WebId
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567831
+		summarizeBy: none
+		sourceColumn: WebId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListId
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567832
+		summarizeBy: none
+		sourceColumn: ListId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListItemId
 		dataType: string
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567812
 		summarizeBy: none
-		sourceColumn: FileId
+		sourceColumn: ListItemId
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Type of action performed on the file
-	column ActionType
+	column ItemURL
 		dataType: string
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567813
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567833
 		summarizeBy: none
-		sourceColumn: ActionType
+		sourceColumn: ItemURL
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Timestamp when the action occurred
-	column ActionDateTime
+	column ItemName
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567834
+		summarizeBy: none
+		sourceColumn: ItemName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemExtension
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567835
+		summarizeBy: none
+		sourceColumn: ItemExtension
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActionDate
 		dataType: dateTime
+		formatString: General Date
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567814
 		summarizeBy: none
-		sourceColumn: ActionDateTime
+		sourceColumn: ActionDate
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Email of the user who performed the action
-	column UserId
+	column ActorType
 		dataType: string
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567815
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781a
 		summarizeBy: none
-		sourceColumn: UserId
+		sourceColumn: ActorType
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Display name of the user
-	column UserDisplayName
+	column ActorIdType
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567836
+		summarizeBy: none
+		sourceColumn: ActorIdType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActorDisplayName
 		dataType: string
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567816
 		summarizeBy: none
-		sourceColumn: UserDisplayName
+		sourceColumn: ActorDisplayName
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Application used to perform the action
-	column ClientApplication
+	column ActorEmail
 		dataType: string
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567817
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567815
 		summarizeBy: none
-		sourceColumn: ClientApplication
+		sourceColumn: ActorEmail
 
 		annotation SummarizationSetBy = Automatic
 
-	/// IP address of the client
-	column IPAddress
+	column ActionName
 		dataType: string
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567818
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567813
 		summarizeBy: none
-		sourceColumn: IPAddress
+		sourceColumn: ActionName
 
 		annotation SummarizationSetBy = Automatic
 
-	/// User agent string from the client
 	column UserAgent
 		dataType: string
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567819
@@ -91,88 +122,76 @@ table SPOFileActions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Whether the user is external to the tenant
-	column IsExternalUser
-		dataType: boolean
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781a
-		summarizeBy: none
-		sourceColumn: IsExternalUser
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Additional details about the operation
-	column OperationDetails
+	column ClientIP
 		dataType: string
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781b
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567818
 		summarizeBy: none
-		sourceColumn: OperationDetails
+		sourceColumn: ClientIP
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Date of the MGDC snapshot
 	column SnapshotDate
 		dataType: dateTime
+		formatString: General Date
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781c
 		summarizeBy: none
 		sourceColumn: SnapshotDate
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Date key for DimDate relationship
-	column ActionDate = DATE(YEAR([ActionDateTime]), MONTH([ActionDateTime]), DAY([ActionDateTime]))
-		dataType: dateTime
-		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567820
-		summarizeBy: none
-
-		annotation SummarizationSetBy = Automatic
-
-	/// Hour of day the action occurred (0-23)
-	column ActionHour = HOUR([ActionDateTime])
+	column ActionHour = HOUR([ActionDate])
 		dataType: int64
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567821
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if action occurred on Saturday or Sunday
-	column IsWeekend = WEEKDAY([ActionDateTime], 2) > 5
+	column IsWeekend = WEEKDAY([ActionDate], 2) > 5
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567822
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if action occurred before 7 AM or after 7 PM
-	column IsAfterHours = OR(HOUR([ActionDateTime]) < 7, HOUR([ActionDateTime]) > 19)
+	column IsAfterHours = OR(HOUR([ActionDate]) < 7, HOUR([ActionDate]) > 19)
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567823
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if action type is considered high risk
-	column IsHighRiskAction = [ActionType] IN {"FileDeleted", "PermissionChanged", "SharingSet", "FileVersionsAllDeleted", "FileMalwareDetected"}
+	column IsHighRiskAction = [ActionName] IN {"FileDeleted", "PermissionChanged", "SharingSet", "FileVersionsAllDeleted", "FileMalwareDetected"}
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567824
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if after hours AND external AND high risk
+	column IsExternalUser = [ActorType] = "External"
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567840
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	column IsSuspiciousActivity = [IsAfterHours] && [IsExternalUser] && [IsHighRiskAction]
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567825
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Categorizes action as Read, Write, Delete, or Manage
 	column ActionCategory =
 			SWITCH(
 				TRUE(),
-				[ActionType] IN {"FileAccessed", "FileCheckedOut"}, "Read",
-				[ActionType] IN {"FileModified", "FileUploaded", "FileRenamed", "FileMoved", "FileCheckedIn"}, "Write",
-				[ActionType] IN {"FileDeleted", "FileVersionsAllDeleted"}, "Delete",
+				[ActionName] IN {"FileAccessed", "FileCheckedOut"}, "Read",
+				[ActionName] IN {"FileModified", "FileUploaded", "FileRenamed", "FileMoved", "FileCheckedIn"}, "Write",
+				[ActionName] IN {"FileDeleted", "FileVersionsAllDeleted"}, "Delete",
 				"Manage"
 			)
 		dataType: string
@@ -181,7 +200,6 @@ table SPOFileActions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Categorizes user agent into Teams, OneDrive, Browser, Mobile, API, or Other
 	column UserAgentCategory =
 			SWITCH(
 				TRUE(),
@@ -198,15 +216,14 @@ table SPOFileActions
 
 		annotation SummarizationSetBy = Automatic
 
-	/// TRUE if an external user accessed (downloaded) a file
-	column IsExternalDownload = [IsExternalUser] && [ActionType] = "FileAccessed"
+	column IsExternalDownload = [IsExternalUser] && [ActionName] = "FileAccessed"
 		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567828
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Time period bucket: Morning, Afternoon, Evening, Night
 	column TimePeriod =
 			SWITCH(
 				TRUE(),
@@ -226,4 +243,3 @@ table SPOFileActions
 		source
 			entityName: SPOFileActions
 			expressionSource: 'DirectQuery to AS - MGDC'
-

@@ -11,10 +11,10 @@
             "field": {
               "Measure": {
                 "Expression": {"SourceRef": {"Entity": "_Measures"}},
-                "Property": "Overlarge Groups"
+                "Property": "M365 Groups"
               }
             },
-            "queryRef": "_Measures.Overlarge Groups"
+            "queryRef": "_Measures.M365 Groups"
           }]
         }
       }
@@ -25,7 +25,7 @@
     "visualContainerObjects": {
       "title": [{"properties": {
         "show": {"expr": {"Literal": {"Value": "true"}}},
-        "text": {"expr": {"Literal": {"Value": "'Overlarge Groups'"}}}
+        "text": {"expr": {"Literal": {"Value": "'M365 Groups'"}}}
       }}]
     }
   }

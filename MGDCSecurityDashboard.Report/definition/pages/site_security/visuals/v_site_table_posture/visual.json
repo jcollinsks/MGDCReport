@@ -9,16 +9,16 @@
         "Values": {
           "projections": [
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "DisplayName"}},
-              "queryRef": "SPOSites.DisplayName"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "RootWeb.Title"}},
+              "queryRef": "SPOSites.RootWeb.Title"
             },
             {
               "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SiteType"}},
               "queryRef": "SPOSites.SiteType"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "SharingCapability"}},
-              "queryRef": "SPOSites.SharingCapability"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "IsExternalSharingEnabled"}},
+              "queryRef": "SPOSites.IsExternalSharingEnabled"
             },
             {
               "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "CalcSiteRiskScore"}},
@@ -29,12 +29,12 @@
               "queryRef": "SPOSites.SiteRiskTier"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "DeviceAccessPolicy"}},
-              "queryRef": "SPOSites.DeviceAccessPolicy"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "BlockAccessFromUnmanagedDevices"}},
+              "queryRef": "SPOSites.BlockAccessFromUnmanagedDevices"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "ConditionalAccessPolicy"}},
-              "queryRef": "SPOSites.ConditionalAccessPolicy"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOSites"}}, "Property": "ReadLocked"}},
+              "queryRef": "SPOSites.ReadLocked"
             }
           ]
         }

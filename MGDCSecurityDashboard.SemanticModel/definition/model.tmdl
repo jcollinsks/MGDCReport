@@ -16,26 +16,26 @@ ref table _Measures
 
 relationship 9c3a7b1e-4d2f-4a8e-b6c1-d5e7f9a0b2c4
 	fromColumn: SPOFiles.SiteId
-	toColumn: SPOSites.SiteId
+	toColumn: SPOSites.Id
 
 relationship a4b8c2d6-5e3f-4b9a-c7d1-e6f0a1b3c5d7
 	fromColumn: SPOFileActions.SiteId
-	toColumn: SPOSites.SiteId
+	toColumn: SPOSites.Id
 
 relationship b5c9d3e7-6f4a-4c0b-d8e2-f7a1b2c4d6e8
 	fromColumn: SPOPermissions.SiteId
-	toColumn: SPOSites.SiteId
+	toColumn: SPOSites.Id
 
 relationship c6d0e4f8-7a5b-4d1c-e9f3-a8b2c3d5e7f9
 	fromColumn: SPOGroups.SiteId
-	toColumn: SPOSites.SiteId
+	toColumn: SPOSites.Id
 
 relationship d7e1f5a9-8b6c-4e2d-f0a4-b9c3d4e6f8a0
 	isActive: false
-	fromColumn: SPOFileActions.FileId
-	toColumn: SPOFiles.FileId
+	fromColumn: SPOFileActions.ListItemId
+	toColumn: SPOFiles.ItemId
 
 relationship e8f2a6b0-9c7d-4f3e-a1b5-c0d4e5f7a9b1
 	isActive: false
-	fromColumn: SPOPermissions.FileId
-	toColumn: SPOFiles.FileId
+	fromColumn: SPOPermissions.ListItemId
+	toColumn: SPOFiles.ItemId

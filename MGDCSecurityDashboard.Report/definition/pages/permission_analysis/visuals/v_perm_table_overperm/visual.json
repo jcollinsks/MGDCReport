@@ -21,10 +21,10 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
-                  "Property": "GrantedToEmail"
+                  "Property": "ShareCreatedBy.Email"
                 }
               },
-              "queryRef": "SPOPermissions.GrantedToEmail"
+              "queryRef": "SPOPermissions.ShareCreatedBy.Email"
             },
             {
               "field": {
