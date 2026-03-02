@@ -231,17 +231,9 @@ table SharePointPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointPermissions = m
-		mode: import
-		source =
-			let
-			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
-			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
-			    SharePoint_Permissions = Lakehouse{[Id="SharePoint_Permissions_v1", ItemKind="Table"]}[Data]
-			in
-			    SharePoint_Permissions
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
+	partition SharePointPermissions = entity
+		mode: directQuery
+		source
+			entityName: SPOPermissions
+			expressionSource: 'DirectQuery to AS - MGDC'
 

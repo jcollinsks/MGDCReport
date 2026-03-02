@@ -4,7 +4,7 @@ Comprehensive SharePoint security dashboard built on Microsoft Graph Data Connec
 
 ## Data Sources
 
-Five MGDC SharePoint datasets from a Microsoft Fabric Lakehouse (via SQL analytics endpoint):
+Five MGDC SharePoint tables via DirectQuery to the MGDC semantic model in Fabric:
 
 | Dataset | Table | Source Cols | Calc Cols | Description |
 |---------|-------|------------|-----------|-------------|
@@ -59,15 +59,10 @@ Organized in display folders:
 
 ## Setup
 
-1. Open `MGDCSecurityDashboard.pbip` in Power BI Desktop (sign into your Fabric account)
-2. Go to **Transform Data → Manage Parameters** and set:
-   - `WorkspaceId` → your Fabric workspace GUID
-   - `LakehouseId` → your Lakehouse item GUID
-3. Click **Refresh** to import data from the Lakehouse tables
-4. Publish to your Fabric workspace from Power BI Desktop
-
-Find both GUIDs in your browser URL when viewing the Lakehouse:
-`https://app.fabric.microsoft.com/groups/<WorkspaceId>/lakehouses/<LakehouseId>`
+1. Open `MGDCSecurityDashboard.pbip` in Power BI Desktop
+2. The semantic model connects via DirectQuery to the **MGDC** semantic model in the **workforce** workspace
+3. Update the connection in `expressions.tmdl` if your workspace or model name differs
+4. Calculated columns, measures, and relationships are applied on top of the remote model
 
 ### Expected Lakehouse tables
 

@@ -304,16 +304,8 @@ table SharePointSites
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointSites = m
-		mode: import
-		source =
-			let
-			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
-			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
-			    SharePoint_Sites = Lakehouse{[Id="SharePoint_Sites_v1", ItemKind="Table"]}[Data]
-			in
-			    SharePoint_Sites
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
+	partition SharePointSites = entity
+		mode: directQuery
+		source
+			entityName: SPOSites
+			expressionSource: 'DirectQuery to AS - MGDC'

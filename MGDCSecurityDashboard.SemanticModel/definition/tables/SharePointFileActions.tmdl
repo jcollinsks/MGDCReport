@@ -221,17 +221,9 @@ table SharePointFileActions
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointFileActions = m
-		mode: import
-		source =
-			let
-			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
-			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
-			    SharePoint_FileActions = Lakehouse{[Id="SharePoint_FileActions_v1", ItemKind="Table"]}[Data]
-			in
-			    SharePoint_FileActions
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
+	partition SharePointFileActions = entity
+		mode: directQuery
+		source
+			entityName: SPOFileActions
+			expressionSource: 'DirectQuery to AS - MGDC'
 
