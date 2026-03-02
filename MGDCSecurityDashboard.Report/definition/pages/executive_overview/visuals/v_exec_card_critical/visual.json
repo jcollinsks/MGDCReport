@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_exec_card_critical",
+  "position": {"x": 840, "y": 20, "z": 500, "height": 100, "width": 195, "tabOrder": 500},
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "Critical Risk Sites"
+              }
+            },
+            "queryRef": "_Measures.Critical Risk Sites"
+          }]
+        }
+      }
+    },
+    "objects": {
+      "categoryLabels": [{"properties": {"show": {"expr": {"Literal": {"Value": "false"}}}}}]
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Critical Risk Sites'"}}}
+      }}]
+    }
+  }
+}

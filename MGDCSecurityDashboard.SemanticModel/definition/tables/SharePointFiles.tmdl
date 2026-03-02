@@ -1,0 +1,292 @@
+table SharePointFiles
+	lineageTag: c1a00002-0001-0001-0001-000000000001
+
+	/// Fact table containing SharePoint file inventory from MGDC.
+	/// Primary key: FileId. Foreign key: SiteId -> SharePointSites.SiteId
+
+	column FileId
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000101
+		summarizeBy: none
+		sourceColumn: FileId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteId
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000102
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileName
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000103
+		summarizeBy: none
+		sourceColumn: FileName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileExtension
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000104
+		summarizeBy: none
+		sourceColumn: FileExtension
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileSizeInBytes
+		dataType: int64
+		lineageTag: c1a00002-0001-0001-0001-000000000105
+		summarizeBy: none
+		sourceColumn: FileSizeInBytes
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDateTime
+		dataType: dateTime
+		lineageTag: c1a00002-0001-0001-0001-000000000106
+		summarizeBy: none
+		sourceColumn: CreatedDateTime
+		formatString: General Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastModifiedDateTime
+		dataType: dateTime
+		lineageTag: c1a00002-0001-0001-0001-000000000107
+		summarizeBy: none
+		sourceColumn: LastModifiedDateTime
+		formatString: General Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000108
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastModifiedBy
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000109
+		summarizeBy: none
+		sourceColumn: LastModifiedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column SensitivityLabelId
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000110
+		summarizeBy: none
+		sourceColumn: SensitivityLabelId
+
+		annotation SummarizationSetBy = Automatic
+
+	column SensitivityLabelName
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000111
+		summarizeBy: none
+		sourceColumn: SensitivityLabelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsEncrypted
+		dataType: boolean
+		lineageTag: c1a00002-0001-0001-0001-000000000112
+		summarizeBy: none
+		sourceColumn: IsEncrypted
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContentType
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000113
+		summarizeBy: none
+		sourceColumn: ContentType
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionCount
+		dataType: int64
+		lineageTag: c1a00002-0001-0001-0001-000000000114
+		summarizeBy: none
+		sourceColumn: VersionCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionStorageInBytes
+		dataType: int64
+		lineageTag: c1a00002-0001-0001-0001-000000000115
+		summarizeBy: none
+		sourceColumn: VersionStorageInBytes
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListItemUrl
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000116
+		summarizeBy: none
+		sourceColumn: ListItemUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentFolderPath
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000117
+		summarizeBy: none
+		sourceColumn: ParentFolderPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDate
+		dataType: dateTime
+		lineageTag: c1a00002-0001-0001-0001-000000000118
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+		formatString: General Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileSizeMB =
+		DIVIDE([FileSizeInBytes], 1048576, 0)
+		dataType: double
+		lineageTag: c1a00002-0001-0001-0001-000000000201
+		summarizeBy: none
+		formatString: #,0.00
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileCategory =
+		SWITCH(
+			TRUE(),
+			[FileExtension] IN {".docx", ".doc", ".odt", ".rtf"}, "Documents",
+			[FileExtension] IN {".xlsx", ".xls", ".csv"}, "Spreadsheets",
+			[FileExtension] IN {".pptx", ".ppt"}, "Presentations",
+			[FileExtension] IN {".pdf"}, "PDFs",
+			[FileExtension] IN {".jpg", ".png", ".gif", ".bmp", ".svg"}, "Images",
+			"Other"
+		)
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000202
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column SecurityStatus =
+		SWITCH(
+			TRUE(),
+			[HasSensitivityLabel] && [IsEncrypted], "Protected",
+			[IsEncrypted], "Encrypted Only",
+			[HasSensitivityLabel], "Labeled Only",
+			"Unprotected"
+		)
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000203
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column HasSensitivityLabel =
+		NOT(ISBLANK([SensitivityLabelId]))
+		dataType: boolean
+		lineageTag: c1a00002-0001-0001-0001-000000000204
+		summarizeBy: none
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileAgeCategory =
+		SWITCH(
+			TRUE(),
+			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 30, "New",
+			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 90, "Recent",
+			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 365, "Standard",
+			DATEDIFF([CreatedDateTime], TODAY(), DAY) < 730, "Old",
+			"Ancient"
+		)
+		dataType: string
+		lineageTag: c1a00002-0001-0001-0001-000000000205
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsLargeFile =
+		[FileSizeInBytes] > 104857600
+		dataType: boolean
+		lineageTag: c1a00002-0001-0001-0001-000000000206
+		summarizeBy: none
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionBloatRatio =
+		DIVIDE([VersionStorageInBytes], [FileSizeInBytes], 0)
+		dataType: double
+		lineageTag: c1a00002-0001-0001-0001-000000000207
+		summarizeBy: none
+		formatString: #,0.00
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysSinceModified =
+		DATEDIFF([LastModifiedDateTime], TODAY(), DAY)
+		dataType: int64
+		lineageTag: c1a00002-0001-0001-0001-000000000208
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsStale =
+		[DaysSinceModified] > 180
+		dataType: boolean
+		lineageTag: c1a00002-0001-0001-0001-000000000209
+		summarizeBy: none
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileRiskScore =
+		VAR _NoLabel = IF(ISBLANK([SensitivityLabelId]), 30, 0)
+		VAR _NoEncryption = IF(NOT([IsEncrypted]), 20, 0)
+		VAR _Stale = IF(DATEDIFF([LastModifiedDateTime], TODAY(), DAY) > 180, 15, 0)
+		VAR _LargeFile = IF([FileSizeInBytes] > 104857600, 10, 0)
+		VAR _VersionBloat = IF(DIVIDE([VersionStorageInBytes], [FileSizeInBytes], 0) > 10, 15, 0)
+		VAR _ExternalPath = IF(CONTAINSSTRING([ParentFolderPath], "/External/") || CONTAINSSTRING([ParentFolderPath], "/Shared with Everyone/"), 10, 0)
+		RETURN _NoLabel + _NoEncryption + _Stale + _LargeFile + _VersionBloat + _ExternalPath
+		dataType: int64
+		lineageTag: c1a00002-0001-0001-0001-000000000210
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SharePointFiles = m
+		mode: import
+		source =
+			let
+			    Source = AzureStorage.DataLake(StorageAccountUrl),
+			    Container = Source{[Name=ContainerName]}[Data],
+			    Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_Files_v1/")),
+			    ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
+			    Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
+			    Typed = Table.TransformColumnTypes(Combined, {
+			        {"FileId", type text}, {"SiteId", type text}, {"FileName", type text},
+			        {"FileExtension", type text}, {"FileSizeInBytes", Int64.Type},
+			        {"CreatedDateTime", type datetimezone}, {"LastModifiedDateTime", type datetimezone},
+			        {"CreatedBy", type text}, {"LastModifiedBy", type text},
+			        {"SensitivityLabelId", type text}, {"SensitivityLabelName", type text},
+			        {"IsEncrypted", type logical}, {"ContentType", type text},
+			        {"VersionCount", Int64.Type}, {"VersionStorageInBytes", Int64.Type},
+			        {"ListItemUrl", type text}, {"ParentFolderPath", type text},
+			        {"SnapshotDate", type datetimezone}
+			    })
+			in
+			    Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

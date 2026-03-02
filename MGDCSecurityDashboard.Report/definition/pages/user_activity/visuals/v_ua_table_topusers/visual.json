@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_ua_table_topusers",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointFileActions"}},
+                  "Property": "UserId"
+                }
+              },
+              "queryRef": "SharePointFileActions.UserId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointFileActions"}},
+                  "Property": "UserDisplayName"
+                }
+              },
+              "queryRef": "SharePointFileActions.UserDisplayName"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                  "Property": "Total Actions"
+                }
+              },
+              "queryRef": "_Measures.Total Actions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                  "Property": "High Risk Actions"
+                }
+              },
+              "queryRef": "_Measures.High Risk Actions"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                  "Property": "Suspicious Activities"
+                }
+              },
+              "queryRef": "_Measures.Suspicious Activities"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Top Active Users'"}}}
+      }}]
+    }
+  }
+}

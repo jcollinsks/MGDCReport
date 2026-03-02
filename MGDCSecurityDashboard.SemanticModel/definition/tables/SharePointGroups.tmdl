@@ -1,0 +1,189 @@
+table SharePointGroups
+	lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789003
+
+	/// Primary key for group records
+	column GroupId
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789010
+		summarizeBy: none
+		sourceColumn: GroupId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// FK to Sites dimension
+	column SiteId
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789011
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the group
+	column GroupName
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789012
+		summarizeBy: none
+		sourceColumn: GroupName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type: M365Group, SecurityGroup, DistributionList, SharePointGroup, MailEnabled
+	column GroupType
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789013
+		summarizeBy: none
+		sourceColumn: GroupType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Total number of members in the group
+	column MemberCount
+		dataType: int64
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789014
+		summarizeBy: none
+		sourceColumn: MemberCount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Number of owners in the group
+	column OwnerCount
+		dataType: int64
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789015
+		summarizeBy: none
+		sourceColumn: OwnerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Number of external (guest) members
+	column ExternalMemberCount
+		dataType: int64
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789016
+		summarizeBy: none
+		sourceColumn: ExternalMemberCount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// When the group was created
+	column CreatedDateTime
+		dataType: dateTime
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789017
+		summarizeBy: none
+		sourceColumn: CreatedDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Most recent activity timestamp
+	column LastActivityDateTime
+		dataType: dateTime
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789018
+		summarizeBy: none
+		sourceColumn: LastActivityDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Group description text
+	column Description
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789019
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Visibility: Public or Private
+	column Visibility
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-12345678901a
+		summarizeBy: none
+		sourceColumn: Visibility
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date of the MGDC snapshot
+	column SnapshotDate
+		dataType: dateTime
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-12345678901b
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if group has zero owners
+	column IsOwnerless = [OwnerCount] = 0
+		dataType: boolean
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789020
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if group has more than 500 members
+	column IsOverlarge = [MemberCount] > 500
+		dataType: boolean
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789021
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Percentage of members who are external guests
+	column ExternalMemberPct = DIVIDE([ExternalMemberCount], [MemberCount], 0) * 100
+		dataType: double
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789022
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Risk level: Critical, High, Medium, Low
+	column GroupRiskLevel =
+			SWITCH(
+				TRUE(),
+				[IsOwnerless] && [ExternalMemberPct] > 20, "Critical",
+				[IsOwnerless] || [IsOverlarge], "High",
+				[ExternalMemberPct] > 10, "Medium",
+				"Low"
+			)
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789023
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Size bucket: Small, Medium, Large, Very Large
+	column GroupSizeCategory =
+			SWITCH(
+				TRUE(),
+				[MemberCount] <= 10, "Small",
+				[MemberCount] <= 50, "Medium",
+				[MemberCount] <= 200, "Large",
+				"Very Large"
+			)
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-123456789024
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SharePointGroups = m
+		mode: import
+		source =
+			let
+				Source = AzureStorage.DataLake(StorageAccountUrl),
+				Container = Source{[Name=ContainerName]}[Data],
+				Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_Groups_v1/")),
+				ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
+				Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
+				Typed = Table.TransformColumnTypes(Combined, {
+					{"GroupId", type text}, {"SiteId", type text},
+					{"GroupName", type text}, {"GroupType", type text},
+					{"MemberCount", Int64.Type}, {"OwnerCount", Int64.Type},
+					{"ExternalMemberCount", Int64.Type}, {"CreatedDateTime", type datetimezone},
+					{"LastActivityDateTime", type datetimezone}, {"Description", type text},
+					{"Visibility", type text}, {"SnapshotDate", type datetimezone}
+				})
+			in
+				Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

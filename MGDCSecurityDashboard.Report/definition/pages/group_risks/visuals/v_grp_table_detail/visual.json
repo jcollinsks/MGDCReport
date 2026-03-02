@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_grp_table_detail",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupName"}},
+              "queryRef": "SharePointGroups.GroupName"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupType"}},
+              "queryRef": "SharePointGroups.GroupType"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "MemberCount"}},
+              "queryRef": "SharePointGroups.MemberCount"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "ExternalMemberCount"}},
+              "queryRef": "SharePointGroups.ExternalMemberCount"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "ExternalMemberPct"}},
+              "queryRef": "SharePointGroups.ExternalMemberPct"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupRiskLevel"}},
+              "queryRef": "SharePointGroups.GroupRiskLevel"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "IsOwnerless"}},
+              "queryRef": "SharePointGroups.IsOwnerless"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Group Risk Details'"}}}
+      }}]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_ua_card_uniqueips",
+  "position": {"x": 1070, "y": 20, "z": 700, "height": 100, "width": 165, "tabOrder": 700},
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "Unique IPs"
+              }
+            },
+            "queryRef": "_Measures.Unique IPs"
+          }]
+        }
+      }
+    },
+    "objects": {
+      "categoryLabels": [{"properties": {"show": {"expr": {"Literal": {"Value": "false"}}}}}]
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Unique IPs'"}}}
+      }}]
+    }
+  }
+}

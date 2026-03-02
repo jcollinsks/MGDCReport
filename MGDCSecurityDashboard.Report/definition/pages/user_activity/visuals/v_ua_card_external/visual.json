@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_ua_card_external",
+  "position": {"x": 895, "y": 20, "z": 600, "height": 100, "width": 165, "tabOrder": 600},
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "External User Downloads"
+              }
+            },
+            "queryRef": "_Measures.External User Downloads"
+          }]
+        }
+      }
+    },
+    "objects": {
+      "categoryLabels": [{"properties": {"show": {"expr": {"Literal": {"Value": "false"}}}}}]
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'External User Downloads'"}}}
+      }}]
+    }
+  }
+}

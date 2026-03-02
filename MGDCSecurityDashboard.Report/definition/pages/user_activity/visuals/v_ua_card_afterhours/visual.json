@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_ua_card_afterhours",
+  "position": {"x": 545, "y": 20, "z": 400, "height": 100, "width": 165, "tabOrder": 400},
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "After Hours Pct"
+              }
+            },
+            "queryRef": "_Measures.After Hours Pct"
+          }]
+        }
+      }
+    },
+    "objects": {
+      "categoryLabels": [{"properties": {"show": {"expr": {"Literal": {"Value": "false"}}}}}]
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'After Hours Pct'"}}}
+      }}]
+    }
+  }
+}

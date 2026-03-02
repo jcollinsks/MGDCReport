@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_risk_column_bytype",
+  "position": {"x": 850, "y": 140, "z": 3000, "height": 250, "width": 400, "tabOrder": 3000},
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [{
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteType"}},
+            "queryRef": "SharePointSites.SiteType",
+            "active": true
+          }]
+        },
+        "Y": {
+          "projections": [{
+            "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": "Avg Composite Risk"}},
+            "queryRef": "_Measures.Avg Composite Risk"
+          }]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Risk Score by Site Type'"}}}
+      }}]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_ext_donut_recipients",
+  "position": {"x": 850, "y": 140, "z": 3000, "height": 250, "width": 400, "tabOrder": 3000},
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [{
+            "field": {
+              "Column": {
+                "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                "Property": "GrantedToType"
+              }
+            },
+            "queryRef": "SharePointPermissions.GrantedToType",
+            "active": true
+          }]
+        },
+        "Y": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "External Shares"
+              }
+            },
+            "queryRef": "_Measures.External Shares"
+          }]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'External Share Recipients'"}}}
+      }}]
+    }
+  }
+}

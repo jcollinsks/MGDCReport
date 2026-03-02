@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_file_table_large",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileName"}},
+              "queryRef": "SharePointFiles.FileName"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileSizeMB"}},
+              "queryRef": "SharePointFiles.FileSizeMB"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "VersionCount"}},
+              "queryRef": "SharePointFiles.VersionCount"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "VersionBloatRatio"}},
+              "queryRef": "SharePointFiles.VersionBloatRatio"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileCategory"}},
+              "queryRef": "SharePointFiles.FileCategory"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "SecurityStatus"}},
+              "queryRef": "SharePointFiles.SecurityStatus"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Large & Bloated Files'"}}}
+      }}]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_risk_table_top25",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "DisplayName"}},
+              "queryRef": "SharePointSites.DisplayName"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteType"}},
+              "queryRef": "SharePointSites.SiteType"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "CalcSiteRiskScore"}},
+              "queryRef": "SharePointSites.CalcSiteRiskScore"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SiteRiskTier"}},
+              "queryRef": "SharePointSites.SiteRiskTier"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "SharingCapability"}},
+              "queryRef": "SharePointSites.SharingCapability"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "HasSensitivityLabel"}},
+              "queryRef": "SharePointSites.HasSensitivityLabel"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointSites"}}, "Property": "IsOrphaned"}},
+              "queryRef": "SharePointSites.IsOrphaned"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Top 25 Highest Risk Sites'"}}}
+      }}]
+    }
+  }
+}

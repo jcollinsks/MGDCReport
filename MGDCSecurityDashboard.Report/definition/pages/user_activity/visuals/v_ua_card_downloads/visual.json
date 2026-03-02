@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_ua_card_downloads",
+  "position": {"x": 20, "y": 20, "z": 100, "height": 100, "width": 165, "tabOrder": 100},
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "Total Downloads"
+              }
+            },
+            "queryRef": "_Measures.Total Downloads"
+          }]
+        }
+      }
+    },
+    "objects": {
+      "categoryLabels": [{"properties": {"show": {"expr": {"Literal": {"Value": "false"}}}}}]
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Total Downloads'"}}}
+      }}]
+    }
+  }
+}

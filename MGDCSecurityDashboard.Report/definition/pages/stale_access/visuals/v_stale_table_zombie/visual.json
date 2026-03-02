@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_stale_table_zombie",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "GrantedToEmail"}},
+              "queryRef": "SharePointPermissions.GrantedToEmail"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "LinkCategory"}},
+              "queryRef": "SharePointPermissions.LinkCategory"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "RoleDefinition"}},
+              "queryRef": "SharePointPermissions.RoleDefinition"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "PermissionAgeCategory"}},
+              "queryRef": "SharePointPermissions.PermissionAgeCategory"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "PermissionAgeDays"}},
+              "queryRef": "SharePointPermissions.PermissionAgeDays"
+            },
+            {
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointPermissions"}}, "Property": "HasNoExpiration"}},
+              "queryRef": "SharePointPermissions.HasNoExpiration"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Zombie Permission Details'"}}}
+      }}]
+    }
+  }
+}

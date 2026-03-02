@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_stale_donut_fileage",
+  "position": {"x": 20, "y": 140, "z": 1000, "height": 250, "width": 380, "tabOrder": 1000},
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [{
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointFiles"}}, "Property": "FileAgeCategory"}},
+            "queryRef": "SharePointFiles.FileAgeCategory",
+            "active": true
+          }]
+        },
+        "Y": {
+          "projections": [{
+            "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": "Total Files"}},
+            "queryRef": "_Measures.Total Files"
+          }]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'File Age Distribution'"}}}
+      }}]
+    }
+  }
+}

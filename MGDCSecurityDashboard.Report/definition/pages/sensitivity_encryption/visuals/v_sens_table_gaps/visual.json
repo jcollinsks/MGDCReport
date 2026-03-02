@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_sens_table_gaps",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "DisplayName"
+                }
+              },
+              "queryRef": "SharePointSites.DisplayName"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                  "Property": "File Label Coverage Pct"
+                }
+              },
+              "queryRef": "_Measures.File Label Coverage Pct"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                  "Property": "Encrypted File Pct"
+                }
+              },
+              "queryRef": "_Measures.Encrypted File Pct"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                  "Property": "Unprotected Files"
+                }
+              },
+              "queryRef": "_Measures.Unprotected Files"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Protection Gap Analysis'"}}}
+      }}]
+    }
+  }
+}

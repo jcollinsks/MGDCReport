@@ -1,0 +1,247 @@
+table SharePointFileActions
+	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567801
+
+	/// Primary key for file action events
+	column ActionId
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567810
+		summarizeBy: none
+		sourceColumn: ActionId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// FK to Sites dimension
+	column SiteId
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567811
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// FK to Files dimension
+	column FileId
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567812
+		summarizeBy: none
+		sourceColumn: FileId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type of action performed on the file
+	column ActionType
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567813
+		summarizeBy: none
+		sourceColumn: ActionType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Timestamp when the action occurred
+	column ActionDateTime
+		dataType: dateTime
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567814
+		summarizeBy: none
+		sourceColumn: ActionDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Email of the user who performed the action
+	column UserId
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567815
+		summarizeBy: none
+		sourceColumn: UserId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display name of the user
+	column UserDisplayName
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567816
+		summarizeBy: none
+		sourceColumn: UserDisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Application used to perform the action
+	column ClientApplication
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567817
+		summarizeBy: none
+		sourceColumn: ClientApplication
+
+		annotation SummarizationSetBy = Automatic
+
+	/// IP address of the client
+	column IPAddress
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567818
+		summarizeBy: none
+		sourceColumn: IPAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	/// User agent string from the client
+	column UserAgent
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567819
+		summarizeBy: none
+		sourceColumn: UserAgent
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Whether the user is external to the tenant
+	column IsExternalUser
+		dataType: boolean
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781a
+		summarizeBy: none
+		sourceColumn: IsExternalUser
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Additional details about the operation
+	column OperationDetails
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781b
+		summarizeBy: none
+		sourceColumn: OperationDetails
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date of the MGDC snapshot
+	column SnapshotDate
+		dataType: dateTime
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef123456781c
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date key for DimDate relationship
+	column ActionDate = DATE(YEAR([ActionDateTime]), MONTH([ActionDateTime]), DAY([ActionDateTime]))
+		dataType: dateTime
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567820
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Hour of day the action occurred (0-23)
+	column ActionHour = HOUR([ActionDateTime])
+		dataType: int64
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567821
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if action occurred on Saturday or Sunday
+	column IsWeekend = WEEKDAY([ActionDateTime], 2) > 5
+		dataType: boolean
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567822
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if action occurred before 7 AM or after 7 PM
+	column IsAfterHours = OR(HOUR([ActionDateTime]) < 7, HOUR([ActionDateTime]) > 19)
+		dataType: boolean
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567823
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if action type is considered high risk
+	column IsHighRiskAction = [ActionType] IN {"FileDeleted", "PermissionChanged", "SharingSet", "FileVersionsAllDeleted", "FileMalwareDetected"}
+		dataType: boolean
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567824
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if after hours AND external AND high risk
+	column IsSuspiciousActivity = [IsAfterHours] && [IsExternalUser] && [IsHighRiskAction]
+		dataType: boolean
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567825
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Categorizes action as Read, Write, Delete, or Manage
+	column ActionCategory =
+			SWITCH(
+				TRUE(),
+				[ActionType] IN {"FileAccessed", "FileCheckedOut"}, "Read",
+				[ActionType] IN {"FileModified", "FileUploaded", "FileRenamed", "FileMoved", "FileCheckedIn"}, "Write",
+				[ActionType] IN {"FileDeleted", "FileVersionsAllDeleted"}, "Delete",
+				"Manage"
+			)
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567826
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Categorizes user agent into Teams, OneDrive, Browser, Mobile, API, or Other
+	column UserAgentCategory =
+			SWITCH(
+				TRUE(),
+				CONTAINSSTRING([UserAgent], "Teams"), "Teams",
+				CONTAINSSTRING([UserAgent], "OneDrive"), "OneDrive",
+				CONTAINSSTRING([UserAgent], "Mozilla") || CONTAINSSTRING([UserAgent], "Chrome") || CONTAINSSTRING([UserAgent], "Edge"), "Browser",
+				CONTAINSSTRING([UserAgent], "Mobile") || CONTAINSSTRING([UserAgent], "Android") || CONTAINSSTRING([UserAgent], "iOS"), "Mobile",
+				CONTAINSSTRING([UserAgent], "CSOM") || CONTAINSSTRING([UserAgent], "Microsoft Office"), "API",
+				"Other"
+			)
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567827
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if an external user accessed (downloaded) a file
+	column IsExternalDownload = [IsExternalUser] && [ActionType] = "FileAccessed"
+		dataType: boolean
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567828
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Time period bucket: Morning, Afternoon, Evening, Night
+	column TimePeriod =
+			SWITCH(
+				TRUE(),
+				[ActionHour] >= 6 && [ActionHour] < 12, "Morning",
+				[ActionHour] >= 12 && [ActionHour] < 17, "Afternoon",
+				[ActionHour] >= 17 && [ActionHour] < 21, "Evening",
+				"Night"
+			)
+		dataType: string
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567829
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SharePointFileActions = m
+		mode: import
+		source =
+			let
+				Source = AzureStorage.DataLake(StorageAccountUrl),
+				Container = Source{[Name=ContainerName]}[Data],
+				Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_FileActions_v1/")),
+				ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
+				Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
+				Typed = Table.TransformColumnTypes(Combined, {
+					{"ActionId", type text}, {"SiteId", type text}, {"FileId", type text},
+					{"ActionType", type text}, {"ActionDateTime", type datetimezone},
+					{"UserId", type text}, {"UserDisplayName", type text},
+					{"ClientApplication", type text}, {"IPAddress", type text},
+					{"UserAgent", type text}, {"IsExternalUser", type logical},
+					{"OperationDetails", type text}, {"SnapshotDate", type datetimezone}
+				})
+			in
+				Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

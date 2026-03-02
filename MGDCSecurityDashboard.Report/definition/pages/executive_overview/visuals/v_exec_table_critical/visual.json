@@ -1,0 +1,76 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_exec_table_critical",
+  "position": {"x": 20, "y": 410, "z": 4000, "height": 290, "width": 1240, "tabOrder": 4000},
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "DisplayName"
+                }
+              },
+              "queryRef": "SharePointSites.DisplayName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "SiteUrl"
+                }
+              },
+              "queryRef": "SharePointSites.SiteUrl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "CalcSiteRiskScore"
+                }
+              },
+              "queryRef": "SharePointSites.CalcSiteRiskScore"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "SiteRiskTier"
+                }
+              },
+              "queryRef": "SharePointSites.SiteRiskTier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "SharingCapability"
+                }
+              },
+              "queryRef": "SharePointSites.SharingCapability"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {"SourceRef": {"Entity": "SharePointSites"}},
+                  "Property": "StorageUsedGB"
+                }
+              },
+              "queryRef": "SharePointSites.StorageUsedGB"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Critical & High Risk Sites'"}}}
+      }}]
+    }
+  }
+}

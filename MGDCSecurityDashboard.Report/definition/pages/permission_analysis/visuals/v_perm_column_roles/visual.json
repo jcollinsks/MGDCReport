@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_perm_column_roles",
+  "position": {"x": 420, "y": 140, "z": 2000, "height": 250, "width": 410, "tabOrder": 2000},
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [{
+            "field": {
+              "Column": {
+                "Expression": {"SourceRef": {"Entity": "SharePointPermissions"}},
+                "Property": "RoleDefinition"
+              }
+            },
+            "queryRef": "SharePointPermissions.RoleDefinition",
+            "active": true
+          }]
+        },
+        "Y": {
+          "projections": [{
+            "field": {
+              "Measure": {
+                "Expression": {"SourceRef": {"Entity": "_Measures"}},
+                "Property": "Total Permissions"
+              }
+            },
+            "queryRef": "_Measures.Total Permissions"
+          }]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Permissions by Role'"}}}
+      }}]
+    }
+  }
+}

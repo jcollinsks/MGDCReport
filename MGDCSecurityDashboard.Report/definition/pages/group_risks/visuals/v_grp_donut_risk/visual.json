@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "v_grp_donut_risk",
+  "position": {"x": 20, "y": 140, "z": 1000, "height": 250, "width": 380, "tabOrder": 1000},
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [{
+            "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SharePointGroups"}}, "Property": "GroupRiskLevel"}},
+            "queryRef": "SharePointGroups.GroupRiskLevel",
+            "active": true
+          }]
+        },
+        "Y": {
+          "projections": [{
+            "field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": "Total Groups"}},
+            "queryRef": "_Measures.Total Groups"
+          }]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{"properties": {
+        "show": {"expr": {"Literal": {"Value": "true"}}},
+        "text": {"expr": {"Literal": {"Value": "'Groups by Risk Level'"}}}
+      }}]
+    }
+  }
+}

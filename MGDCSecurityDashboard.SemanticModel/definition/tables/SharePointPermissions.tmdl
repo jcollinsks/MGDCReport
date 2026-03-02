@@ -1,0 +1,258 @@
+table SharePointPermissions
+	lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678902
+
+	/// Primary key for permission records
+	column PermissionId
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678910
+		summarizeBy: none
+		sourceColumn: PermissionId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// FK to Sites dimension
+	column SiteId
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678911
+		summarizeBy: none
+		sourceColumn: SiteId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// FK to Files dimension (nullable for site-level permissions)
+	column FileId
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678912
+		summarizeBy: none
+		sourceColumn: FileId
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Email of the grantee
+	column GrantedToEmail
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678913
+		summarizeBy: none
+		sourceColumn: GrantedToEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display name of the grantee
+	column GrantedToDisplayName
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678914
+		summarizeBy: none
+		sourceColumn: GrantedToDisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type of principal: User, Group, SecurityGroup, Everyone, Anonymous
+	column GrantedToType
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678915
+		summarizeBy: none
+		sourceColumn: GrantedToType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Permission level: Read, Write, Full Control, Contribute, Edit, View Only
+	column RoleDefinition
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678916
+		summarizeBy: none
+		sourceColumn: RoleDefinition
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Type of sharing link used
+	column LinkType
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678917
+		summarizeBy: none
+		sourceColumn: LinkType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Scope of the sharing link: Anyone, Organization, SpecificPeople
+	column LinkScope
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678918
+		summarizeBy: none
+		sourceColumn: LinkScope
+
+		annotation SummarizationSetBy = Automatic
+
+	/// When the permission was created
+	column CreatedDateTime
+		dataType: dateTime
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678919
+		summarizeBy: none
+		sourceColumn: CreatedDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// When the permission expires (nullable)
+	column ExpirationDateTime
+		dataType: dateTime
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891a
+		summarizeBy: none
+		sourceColumn: ExpirationDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Whether permission is inherited from parent
+	column IsInherited
+		dataType: boolean
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891b
+		summarizeBy: none
+		sourceColumn: IsInherited
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Email of the user who shared
+	column SharedBy
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891c
+		summarizeBy: none
+		sourceColumn: SharedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date of the MGDC snapshot
+	column SnapshotDate
+		dataType: dateTime
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567891d
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if the link is accessible by anyone (anonymous)
+	column IsAnonymousLink = [LinkScope] = "Anyone" || [GrantedToType] = "Anonymous"
+		dataType: boolean
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678920
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if shared externally or with everyone
+	column IsExternalShare = [GrantedToType] IN {"Everyone", "Anonymous"} || CONTAINSSTRING([GrantedToEmail], "#ext#")
+		dataType: boolean
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678921
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if no expiration date is set
+	column HasNoExpiration = ISBLANK([ExpirationDateTime])
+		dataType: boolean
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678922
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Risk level: Critical, High, Medium, Low
+	column PermissionRiskLevel =
+			SWITCH(
+				TRUE(),
+				[IsAnonymousLink] && [RoleDefinition] IN {"Write", "Full Control"}, "Critical",
+				[IsAnonymousLink], "High",
+				[IsExternalShare] && [HasNoExpiration], "High",
+				[IsExternalShare], "Medium",
+				"Low"
+			)
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678923
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Numeric risk score: Critical=100, High=75, Medium=50, Low=25
+	column PermissionRiskScore = SWITCH([PermissionRiskLevel], "Critical", 100, "High", 75, "Medium", 50, 25)
+		dataType: int64
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678924
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if overprivileged: write/full control via anonymous or external link
+	column IsOverprivileged = [RoleDefinition] IN {"Full Control", "Write"} && ([IsAnonymousLink] || [IsExternalShare])
+		dataType: boolean
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678925
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Age bucket: New, Recent, Standard, Old, Ancient
+	column PermissionAgeCategory =
+			SWITCH(
+				TRUE(),
+				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 30, "New",
+				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 90, "Recent",
+				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 365, "Standard",
+				DATEDIFF([CreatedDateTime], TODAY(), DAY) < 730, "Old",
+				"Ancient"
+			)
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678926
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Number of days since permission was created
+	column PermissionAgeDays = DATEDIFF([CreatedDateTime], TODAY(), DAY)
+		dataType: int64
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678927
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Days remaining until the permission expires (blank if no expiry)
+	column DaysUntilExpiry = IF(ISBLANK([ExpirationDateTime]), BLANK(), DATEDIFF(TODAY(), [ExpirationDateTime], DAY))
+		dataType: int64
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678928
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TRUE if permission expires within 30 days
+	column IsExpiringSoon = NOT(ISBLANK([ExpirationDateTime])) && [DaysUntilExpiry] <= 30 && [DaysUntilExpiry] > 0
+		dataType: boolean
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f12345678929
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Normalized link category (Direct if no link type)
+	column LinkCategory = IF(ISBLANK([LinkType]), "Direct", [LinkType])
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f1234567892a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SharePointPermissions = m
+		mode: import
+		source =
+			let
+				Source = AzureStorage.DataLake(StorageAccountUrl),
+				Container = Source{[Name=ContainerName]}[Data],
+				Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_Permissions_v1/")),
+				ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
+				Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
+				Typed = Table.TransformColumnTypes(Combined, {
+					{"PermissionId", type text}, {"SiteId", type text}, {"FileId", type text},
+					{"GrantedToEmail", type text}, {"GrantedToDisplayName", type text},
+					{"GrantedToType", type text}, {"RoleDefinition", type text},
+					{"LinkType", type text}, {"LinkScope", type text},
+					{"CreatedDateTime", type datetimezone}, {"ExpirationDateTime", type datetimezone},
+					{"IsInherited", type logical}, {"SharedBy", type text},
+					{"SnapshotDate", type datetimezone}
+				})
+			in
+				Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

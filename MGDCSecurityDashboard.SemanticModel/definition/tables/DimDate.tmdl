@@ -1,0 +1,83 @@
+table DimDate
+	lineageTag: d1a00001-0001-0001-0001-000000000001
+
+	column Date
+		dataType: dateTime
+		isKey: true
+		formatString: Short Date
+		lineageTag: d1a00001-0001-0002-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Year
+		dataType: int64
+		lineageTag: d1a00001-0001-0003-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [Year]
+
+	column MonthNumber
+		dataType: int64
+		lineageTag: d1a00001-0001-0004-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [MonthNumber]
+
+	column MonthName
+		dataType: string
+		lineageTag: d1a00001-0001-0005-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [MonthName]
+
+	column Quarter
+		dataType: string
+		lineageTag: d1a00001-0001-0006-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [Quarter]
+
+	column DayOfWeek
+		dataType: int64
+		lineageTag: d1a00001-0001-0007-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [DayOfWeek]
+
+	column DayName
+		dataType: string
+		lineageTag: d1a00001-0001-0008-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [DayName]
+
+	column IsWeekend
+		dataType: boolean
+		lineageTag: d1a00001-0001-0009-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [IsWeekend]
+
+	column WeekOfYear
+		dataType: int64
+		lineageTag: d1a00001-0001-000a-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [WeekOfYear]
+
+	column YearMonth
+		dataType: string
+		lineageTag: d1a00001-0001-000b-0001-000000000001
+		summarizeBy: none
+		sourceColumn: [YearMonth]
+
+	partition DimDate = calculated
+		mode: import
+		source =
+				VAR StartDate = DATE(2020, 1, 1)
+				VAR EndDate = DATE(2026, 12, 31)
+				RETURN
+				ADDCOLUMNS(
+					CALENDAR(StartDate, EndDate),
+					"Year", YEAR([Date]),
+					"MonthNumber", MONTH([Date]),
+					"MonthName", FORMAT([Date], "MMMM"),
+					"Quarter", "Q" & FORMAT([Date], "Q"),
+					"DayOfWeek", WEEKDAY([Date], 2),
+					"DayName", FORMAT([Date], "dddd"),
+					"IsWeekend", WEEKDAY([Date], 2) > 5,
+					"WeekOfYear", WEEKNUM([Date]),
+					"YearMonth", FORMAT([Date], "YYYY-MM")
+				)
