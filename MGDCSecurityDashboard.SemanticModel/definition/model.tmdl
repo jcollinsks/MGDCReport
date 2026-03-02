@@ -3,7 +3,7 @@ model Model
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
 
-annotation PBI_QueryOrder = ["DirectQuery to AS - MGDC","SharePointSites","SharePointFiles","SharePointFileActions","SharePointPermissions","SharePointGroups","DimDate"]
+annotation PBI_QueryOrder = ["DirectQuery to AS - MGDC","SharePointSites","SharePointFiles","SharePointFileActions","SharePointPermissions","SharePointGroups"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -12,7 +12,6 @@ ref table SharePointFiles
 ref table SharePointFileActions
 ref table SharePointPermissions
 ref table SharePointGroups
-ref table DimDate
 ref table _Measures
 
 relationship 9c3a7b1e-4d2f-4a8e-b6c1-d5e7f9a0b2c4
@@ -40,12 +39,3 @@ relationship e8f2a6b0-9c7d-4f3e-a1b5-c0d4e5f7a9b1
 	isActive: false
 	fromColumn: SharePointPermissions.FileId
 	toColumn: SharePointFiles.FileId
-
-relationship f9a3b7c1-0d8e-4a4f-b2c6-d1e5f6a8b0c2
-	fromColumn: SharePointFileActions.ActionDate
-	toColumn: DimDate.Date
-
-relationship a0b4c8d2-1e9f-4b5a-c3d7-e2f6a7b9c1d3
-	isActive: false
-	fromColumn: SharePointPermissions.CreatedDateTime
-	toColumn: DimDate.Date

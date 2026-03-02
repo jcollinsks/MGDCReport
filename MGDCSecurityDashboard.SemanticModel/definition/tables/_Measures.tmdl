@@ -734,10 +734,5 @@ table _Measures
 		displayFolder: Risk Scoring
 		lineageTag: m1a01001-0010-0010-0010-000000000010
 
-	partition _Measures = m
-		mode: import
-		source =
-				let
-					Source = #table(1, {})
-				in
-					Source
+	partition _Measures = calculated
+		source = ROW("x", 1)
