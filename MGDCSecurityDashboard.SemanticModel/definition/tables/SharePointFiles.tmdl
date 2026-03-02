@@ -268,12 +268,9 @@ table SharePointFiles
 		mode: import
 		source =
 			let
-			    Source = AzureStorage.DataLake(StorageAccountUrl),
-			    Container = Source{[Name=ContainerName]}[Data],
-			    Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_Files_v1/")),
-			    ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
-			    Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
-			    Typed = Table.TransformColumnTypes(Combined, {
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    SharePoint_Files = Source{[Schema="dbo", Item="SharePoint_Files_v1"]}[Data],
+			    Typed = Table.TransformColumnTypes(SharePoint_Files, {
 			        {"FileId", type text}, {"SiteId", type text}, {"FileName", type text},
 			        {"FileExtension", type text}, {"FileSizeInBytes", Int64.Type},
 			        {"CreatedDateTime", type datetimezone}, {"LastModifiedDateTime", type datetimezone},

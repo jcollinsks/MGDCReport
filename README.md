@@ -4,7 +4,7 @@ Comprehensive SharePoint security dashboard built on Microsoft Graph Data Connec
 
 ## Data Sources
 
-Five MGDC SharePoint Parquet datasets from Azure Data Lake Storage Gen2:
+Five MGDC SharePoint datasets from a Microsoft Fabric Lakehouse (via SQL analytics endpoint):
 
 | Dataset | Table | Source Cols | Calc Cols | Description |
 |---------|-------|------------|-----------|-------------|
@@ -61,19 +61,20 @@ Organized in display folders:
 
 1. Open `MGDCSecurityDashboard.pbip` in Power BI Desktop
 2. Edit parameters in **Transform Data → Manage Parameters**:
-   - `StorageAccountUrl` → your ADLS Gen2 endpoint (e.g. `https://youraccount.dfs.core.windows.net`)
-   - `ContainerName` → container with MGDC output (e.g. `mgdc-output`)
-3. Click **Refresh** to load data from Parquet files
+   - `LakehouseSQLEndpoint` → your Fabric Lakehouse SQL analytics endpoint (e.g. `your-endpoint.datawarehouse.fabric.microsoft.com`)
+   - `LakehouseName` → your Lakehouse name (e.g. `MGDCLakehouse`)
+3. Click **Refresh** to load data from Lakehouse tables
 
-### Expected ADLS folder structure
+### Expected Lakehouse tables
+
+The following tables must exist in the Lakehouse (as Delta tables in the Tables section):
 
 ```
-<container>/
-  SharePoint_Sites_v1/YYYY/MM/DD/HH/mm/*.parquet
-  SharePoint_Files_v1/YYYY/MM/DD/HH/mm/*.parquet
-  SharePoint_FileActions_v1/YYYY/MM/DD/HH/mm/*.parquet
-  SharePoint_Permissions_v1/YYYY/MM/DD/HH/mm/*.parquet
-  SharePoint_Groups_v1/YYYY/MM/DD/HH/mm/*.parquet
+dbo.SharePoint_Sites_v1
+dbo.SharePoint_Files_v1
+dbo.SharePoint_FileActions_v1
+dbo.SharePoint_Permissions_v1
+dbo.SharePoint_Groups_v1
 ```
 
 ## Project Structure
@@ -86,7 +87,7 @@ MGDCSecurityDashboard.SemanticModel/          # Data model
   definition/
     database.tmdl
     model.tmdl                                # 8 relationships, 7 table refs
-    expressions.tmdl                          # ADLS parameters
+    expressions.tmdl                          # Fabric Lakehouse parameters
     tables/
       SharePointSites.tmdl                    # 22+11 columns, M query
       SharePointFiles.tmdl                    # 18+10 columns, M query

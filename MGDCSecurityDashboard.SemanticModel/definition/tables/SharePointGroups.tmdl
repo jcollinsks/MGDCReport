@@ -167,12 +167,9 @@ table SharePointGroups
 		mode: import
 		source =
 			let
-				Source = AzureStorage.DataLake(StorageAccountUrl),
-				Container = Source{[Name=ContainerName]}[Data],
-				Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_Groups_v1/")),
-				ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
-				Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
-				Typed = Table.TransformColumnTypes(Combined, {
+				Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+				SharePoint_Groups = Source{[Schema="dbo", Item="SharePoint_Groups_v1"]}[Data],
+				Typed = Table.TransformColumnTypes(SharePoint_Groups, {
 					{"GroupId", type text}, {"SiteId", type text},
 					{"GroupName", type text}, {"GroupType", type text},
 					{"MemberCount", Int64.Type}, {"OwnerCount", Int64.Type},

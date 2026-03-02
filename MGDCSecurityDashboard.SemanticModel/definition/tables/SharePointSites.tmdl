@@ -311,12 +311,9 @@ table SharePointSites
 		mode: import
 		source =
 			let
-			    Source = AzureStorage.DataLake(StorageAccountUrl),
-			    Container = Source{[Name=ContainerName]}[Data],
-			    Filtered = Table.SelectRows(Container, each Text.StartsWith([Folder Path], ContainerName & "/SharePoint_Sites_v1/")),
-			    ParquetFiles = Table.SelectRows(Filtered, each [Extension] = ".parquet"),
-			    Combined = Table.Combine(Table.TransformRows(ParquetFiles, each Parquet.Document([Content]))),
-			    Typed = Table.TransformColumnTypes(Combined, {
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    SharePoint_Sites = Source{[Schema="dbo", Item="SharePoint_Sites_v1"]}[Data],
+			    Typed = Table.TransformColumnTypes(SharePoint_Sites, {
 			        {"SiteId", type text}, {"SiteUrl", type text}, {"DisplayName", type text},
 			        {"WebTemplate", type text}, {"CreatedDateTime", type datetimezone},
 			        {"LastModifiedDateTime", type datetimezone}, {"StorageUsedInBytes", Int64.Type},
