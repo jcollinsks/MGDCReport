@@ -1,10 +1,6 @@
 table _Measures
 	lineageTag: m1a00000-0000-0000-0001-000000000001
 
-	/// ============================================================
-	/// DISPLAY FOLDER 1: Executive Overview (12 measures)
-	/// ============================================================
-
 	measure 'Total Sites' =
 			COUNTROWS(SharePointSites)
 		formatString: #,##0
@@ -79,10 +75,6 @@ table _Measures
 		formatString: #,##0
 		displayFolder: Executive Overview
 		lineageTag: m1a00101-0001-0001-0001-000000000012
-
-	/// ============================================================
-	/// DISPLAY FOLDER 2: External Sharing (14 measures)
-	/// ============================================================
 
 	measure 'Anonymous Links' =
 			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE())
@@ -171,10 +163,6 @@ table _Measures
 		displayFolder: External Sharing
 		lineageTag: m1a00201-0002-0002-0002-000000000014
 
-	/// ============================================================
-	/// DISPLAY FOLDER 3: Permission Analysis (14 measures)
-	/// ============================================================
-
 	measure 'Critical Risk Permissions' =
 			CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[PermissionRiskLevel] = "Critical")
 		formatString: #,##0
@@ -259,10 +247,6 @@ table _Measures
 		displayFolder: Permission Analysis
 		lineageTag: m1a00301-0003-0003-0003-000000000014
 
-	/// ============================================================
-	/// DISPLAY FOLDER 4: Sensitivity & Encryption (12 measures)
-	/// ============================================================
-
 	measure 'File Label Coverage Pct' =
 			DIVIDE(CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[HasSensitivityLabel] = TRUE()), COUNTROWS(SharePointFiles), 0) * 100
 		formatString: 0.0
@@ -334,10 +318,6 @@ table _Measures
 		formatString: 0.0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000012
-
-	/// ============================================================
-	/// DISPLAY FOLDER 5: User Activity (16 measures)
-	/// ============================================================
 
 	measure 'Total Downloads' =
 			CALCULATE(COUNTROWS(SharePointFileActions), SharePointFileActions[ActionCategory] = "Read")
@@ -435,10 +415,6 @@ table _Measures
 		displayFolder: User Activity
 		lineageTag: m1a00501-0005-0005-0005-000000000016
 
-	/// ============================================================
-	/// DISPLAY FOLDER 6: Site Security (10 measures)
-	/// ============================================================
-
 	measure 'Sites No Device Policy' =
 			CALCULATE(COUNTROWS(SharePointSites), ISBLANK(SharePointSites[DeviceAccessPolicy]))
 		formatString: #,##0
@@ -498,10 +474,6 @@ table _Measures
 		formatString: #,##0
 		displayFolder: Site Security
 		lineageTag: m1a00601-0006-0006-0006-000000000010
-
-	/// ============================================================
-	/// DISPLAY FOLDER 7: Group Risks (11 measures)
-	/// ============================================================
 
 	measure 'Total Groups' =
 			COUNTROWS(SharePointGroups)
@@ -569,10 +541,6 @@ table _Measures
 		displayFolder: Group Risks
 		lineageTag: m1a00701-0007-0007-0007-000000000011
 
-	/// ============================================================
-	/// DISPLAY FOLDER 8: File Intelligence (11 measures)
-	/// ============================================================
-
 	measure 'Total Version Storage TB' =
 			DIVIDE(SUM(SharePointFiles[VersionStorageInBytes]), 1099511627776, 0)
 		formatString: 0.00
@@ -639,10 +607,6 @@ table _Measures
 		displayFolder: File Intelligence
 		lineageTag: m1a00801-0008-0008-0008-000000000011
 
-	/// ============================================================
-	/// DISPLAY FOLDER 9: Stale Access (10 measures)
-	/// ============================================================
-
 	measure 'Stale Files' =
 			CALCULATE(COUNTROWS(SharePointFiles), SharePointFiles[IsStale] = TRUE())
 		formatString: #,##0
@@ -702,10 +666,6 @@ table _Measures
 		formatString: 0
 		displayFolder: Stale Access
 		lineageTag: m1a00901-0009-0009-0009-000000000010
-
-	/// ============================================================
-	/// DISPLAY FOLDER 10: Risk Scoring (10 measures)
-	/// ============================================================
 
 	measure 'Sharing Risk Component' =
 			VAR AnonPct = DIVIDE(CALCULATE(COUNTROWS(SharePointPermissions), SharePointPermissions[IsAnonymousLink] = TRUE()), COUNTROWS(SharePointPermissions), 0)

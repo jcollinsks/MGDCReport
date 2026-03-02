@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "executive_overview",
+    "external_sharing",
+    "permission_analysis",
+    "sensitivity_encryption",
+    "user_activity",
+    "site_security",
+    "group_risks",
+    "file_intelligence",
+    "stale_access",
+    "risk_scoring"
+  ],
+  "activePageName": "executive_overview"
+}
