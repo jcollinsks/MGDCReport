@@ -1,9 +1,6 @@
 table SharePointSites
 	lineageTag: c1a00001-0001-0001-0001-000000000001
 
-	/// Hub table in star schema containing SharePoint site inventory from MGDC.
-	/// Primary key: SiteId
-
 	column SiteId
 		dataType: string
 		lineageTag: c1a00001-0001-0001-0001-000000000101

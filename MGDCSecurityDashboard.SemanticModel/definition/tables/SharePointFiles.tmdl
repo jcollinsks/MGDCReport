@@ -1,9 +1,6 @@
 table SharePointFiles
 	lineageTag: c1a00002-0001-0001-0001-000000000001
 
-	/// Fact table containing SharePoint file inventory from MGDC.
-	/// Primary key: FileId. Foreign key: SiteId -> SharePointSites.SiteId
-
 	column FileId
 		dataType: string
 		lineageTag: c1a00002-0001-0001-0001-000000000101
