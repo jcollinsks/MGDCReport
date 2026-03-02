@@ -17,16 +17,12 @@
               "queryRef": "SPOGroups.GroupType"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupId"}},
-              "queryRef": "SPOGroups.GroupId"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "Owner.Email"}},
+              "queryRef": "SPOGroups.Owner.Email"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupType"}},
-              "queryRef": "SPOGroups.GroupType"
-            },
-            {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "ExternalMemberPct"}},
-              "queryRef": "SPOGroups.ExternalMemberPct"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "Owner.Name"}},
+              "queryRef": "SPOGroups.Owner.Name"
             },
             {
               "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOGroups"}}, "Property": "GroupRiskLevel"}},

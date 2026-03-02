@@ -11,10 +11,10 @@
             "field": {
               "Column": {
                 "Expression": {"SourceRef": {"Entity": "SPOFiles"}},
-                "Property": "SensitivityLabelName"
+                "Property": "SensitivityLabelInfo.DisplayName"
               }
             },
-            "queryRef": "SPOFiles.SensitivityLabelName",
+            "queryRef": "SPOFiles.SensitivityLabelInfo.DisplayName",
             "active": true
           }]
         },

@@ -21,10 +21,10 @@
               "field": {
                 "Column": {
                   "Expression": {"SourceRef": {"Entity": "SPOFileActions"}},
-                  "Property": "UserDisplayName"
+                  "Property": "ActorDisplayName"
                 }
               },
-              "queryRef": "SPOFileActions.UserDisplayName"
+              "queryRef": "SPOFileActions.ActorDisplayName"
             },
             {
               "field": {

@@ -11,10 +11,10 @@
             "field": {
               "Column": {
                 "Expression": {"SourceRef": {"Entity": "SPOPermissions"}},
-                "Property": "IsInherited"
+                "Property": "LinkCategory"
               }
             },
-            "queryRef": "SPOPermissions.IsInherited",
+            "queryRef": "SPOPermissions.LinkCategory",
             "active": true
           }]
         },
@@ -34,7 +34,7 @@
     "visualContainerObjects": {
       "title": [{"properties": {
         "show": {"expr": {"Literal": {"Value": "true"}}},
-        "text": {"expr": {"Literal": {"Value": "'Inherited vs Direct'"}}}
+        "text": {"expr": {"Literal": {"Value": "'Permission Link Types'"}}}
       }}]
     }
   }

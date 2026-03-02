@@ -17,8 +17,8 @@
               "queryRef": "SPOFiles.FileSizeMB"
             },
             {
-              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "VersionCount"}},
-              "queryRef": "SPOFiles.VersionCount"
+              "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "MajorVersion"}},
+              "queryRef": "SPOFiles.MajorVersion"
             },
             {
               "field": {"Column": {"Expression": {"SourceRef": {"Entity": "SPOFiles"}}, "Property": "VersionBloatRatio"}},

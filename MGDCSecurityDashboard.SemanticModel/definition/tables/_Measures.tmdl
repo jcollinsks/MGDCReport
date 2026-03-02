@@ -260,7 +260,7 @@ table _Measures
 		lineageTag: m1a00401-0004-0004-0004-000000000002
 
 	measure 'Encrypted Files' =
-			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[IsEncrypted] = TRUE())
+			CALCULATE(COUNTROWS(SPOFiles), SPOFiles[IsLabelEncrypted] = TRUE())
 		formatString: #,##0
 		displayFolder: Sensitivity & Encryption
 		lineageTag: m1a00401-0004-0004-0004-000000000003
