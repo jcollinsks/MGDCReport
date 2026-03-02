@@ -3,7 +3,7 @@ model Model
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
 
-annotation PBI_QueryOrder = ["SharePointSites","SharePointFiles","SharePointFileActions","SharePointPermissions","SharePointGroups","DimDate","LakehouseSQLEndpoint","LakehouseName"]
+annotation PBI_QueryOrder = ["SharePointSites","SharePointFiles","SharePointFileActions","SharePointPermissions","SharePointGroups","DimDate","DatabaseQuery"]
 
 annotation PBI_ProTooling = ["DevMode"]
 

@@ -59,15 +59,18 @@ Organized in display folders:
 
 ## Setup
 
-1. Open `MGDCSecurityDashboard.pbip` in Power BI Desktop
-2. Edit parameters in **Transform Data → Manage Parameters**:
-   - `LakehouseSQLEndpoint` → your Fabric Lakehouse SQL analytics endpoint (e.g. `your-endpoint.datawarehouse.fabric.microsoft.com`)
-   - `LakehouseName` → your Lakehouse name (e.g. `MGDCLakehouse`)
-3. Click **Refresh** to load data from Lakehouse tables
+### Fabric Deployment (DirectLake)
+
+1. Connect this repo to a Fabric workspace via **Git Integration**
+2. The semantic model uses **DirectLake** mode — reads Delta tables directly from your Lakehouse
+3. After syncing, bind the semantic model to your Lakehouse:
+   - Open the semantic model in Fabric → **Settings → Gateway and cloud connections**
+   - Map the connection to your Lakehouse containing the MGDC tables
+4. No refresh needed — DirectLake reads Delta tables on demand
 
 ### Expected Lakehouse tables
 
-The following tables must exist in the Lakehouse (as Delta tables in the Tables section):
+The following Delta tables must exist in your Lakehouse (Tables section):
 
 ```
 dbo.SharePoint_Sites_v1

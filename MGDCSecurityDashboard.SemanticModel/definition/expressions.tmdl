@@ -1,9 +1,8 @@
-expression LakehouseSQLEndpoint = "your-endpoint.datawarehouse.fabric.microsoft.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression DatabaseQuery =
+	let
+		database = Sql.Database("your-endpoint.datawarehouse.fabric.microsoft.com", "your-lakehouse-name")
+	in
+		database
 	lineageTag: e1a00001-0001-0001-0001-000000000001
 
-	annotation PBI_ResultType = Text
-
-expression LakehouseName = "MGDCLakehouse" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: e1a00002-0001-0001-0001-000000000001
-
-	annotation PBI_ResultType = Text
+	annotation PBI_ResultType = Table
