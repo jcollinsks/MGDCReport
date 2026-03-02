@@ -59,12 +59,15 @@ Organized in display folders:
 
 ## Setup
 
-1. Open `MGDCSecurityDashboard.pbip` in Power BI Desktop
+1. Open `MGDCSecurityDashboard.pbip` in Power BI Desktop (sign into your Fabric account)
 2. Go to **Transform Data → Manage Parameters** and set:
-   - `LakehouseSQLEndpoint` → your Fabric Lakehouse SQL analytics endpoint (e.g. `your-endpoint.datawarehouse.fabric.microsoft.com`)
-   - `LakehouseName` → your Lakehouse database name (e.g. `MGDCLakehouse`)
+   - `WorkspaceId` → your Fabric workspace GUID
+   - `LakehouseId` → your Lakehouse item GUID
 3. Click **Refresh** to import data from the Lakehouse tables
 4. Publish to your Fabric workspace from Power BI Desktop
+
+Find both GUIDs in your browser URL when viewing the Lakehouse:
+`https://app.fabric.microsoft.com/groups/<WorkspaceId>/lakehouses/<LakehouseId>`
 
 ### Expected Lakehouse tables
 

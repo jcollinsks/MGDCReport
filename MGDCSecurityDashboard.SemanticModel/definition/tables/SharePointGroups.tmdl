@@ -167,18 +167,11 @@ table SharePointGroups
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
-			    SharePoint_Groups = Source{[Schema="dbo", Item="SharePoint_Groups_v1"]}[Data],
-			    Typed = Table.TransformColumnTypes(SharePoint_Groups, {
-			        {"GroupId", type text}, {"SiteId", type text},
-			        {"GroupName", type text}, {"GroupType", type text},
-			        {"MemberCount", Int64.Type}, {"OwnerCount", Int64.Type},
-			        {"ExternalMemberCount", Int64.Type}, {"CreatedDateTime", type datetimezone},
-			        {"LastActivityDateTime", type datetimezone}, {"Description", type text},
-			        {"Visibility", type text}, {"SnapshotDate", type datetimezone}
-			    })
+			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
+			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
+			    SharePoint_Groups = Lakehouse{[Id="SharePoint_Groups_v1", ItemKind="Table"]}[Data]
 			in
-			    Typed
+			    SharePoint_Groups
 
 	annotation PBI_NavigationStepName = Navigation
 

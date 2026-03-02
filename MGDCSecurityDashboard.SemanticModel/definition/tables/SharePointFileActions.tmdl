@@ -225,18 +225,11 @@ table SharePointFileActions
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
-			    SharePoint_FileActions = Source{[Schema="dbo", Item="SharePoint_FileActions_v1"]}[Data],
-			    Typed = Table.TransformColumnTypes(SharePoint_FileActions, {
-			        {"ActionId", type text}, {"SiteId", type text}, {"FileId", type text},
-			        {"ActionType", type text}, {"ActionDateTime", type datetimezone},
-			        {"UserId", type text}, {"UserDisplayName", type text},
-			        {"ClientApplication", type text}, {"IPAddress", type text},
-			        {"UserAgent", type text}, {"IsExternalUser", type logical},
-			        {"OperationDetails", type text}, {"SnapshotDate", type datetimezone}
-			    })
+			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
+			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
+			    SharePoint_FileActions = Lakehouse{[Id="SharePoint_FileActions_v1", ItemKind="Table"]}[Data]
 			in
-			    Typed
+			    SharePoint_FileActions
 
 	annotation PBI_NavigationStepName = Navigation
 

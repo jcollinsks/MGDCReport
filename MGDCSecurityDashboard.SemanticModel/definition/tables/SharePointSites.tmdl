@@ -308,23 +308,11 @@ table SharePointSites
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
-			    SharePoint_Sites = Source{[Schema="dbo", Item="SharePoint_Sites_v1"]}[Data],
-			    Typed = Table.TransformColumnTypes(SharePoint_Sites, {
-			        {"SiteId", type text}, {"SiteUrl", type text}, {"DisplayName", type text},
-			        {"WebTemplate", type text}, {"CreatedDateTime", type datetimezone},
-			        {"LastModifiedDateTime", type datetimezone}, {"StorageUsedInBytes", Int64.Type},
-			        {"StorageAllocatedInBytes", Int64.Type}, {"IsDeleted", type logical},
-			        {"SensitivityLabelId", type text}, {"SensitivityLabelName", type text},
-			        {"SharingCapability", type text}, {"ConditionalAccessPolicy", type text},
-			        {"OwnerEmail", type text}, {"OwnerDisplayName", type text},
-			        {"GroupId", type text}, {"IsTeamsConnected", type logical},
-			        {"LockState", type text}, {"HubSiteId", type text},
-			        {"DeviceAccessPolicy", type text}, {"GeoLocation", type text},
-			        {"SnapshotDate", type datetimezone}
-			    })
+			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
+			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
+			    SharePoint_Sites = Lakehouse{[Id="SharePoint_Sites_v1", ItemKind="Table"]}[Data]
 			in
-			    Typed
+			    SharePoint_Sites
 
 	annotation PBI_NavigationStepName = Navigation
 

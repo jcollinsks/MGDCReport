@@ -235,19 +235,11 @@ table SharePointPermissions
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
-			    SharePoint_Permissions = Source{[Schema="dbo", Item="SharePoint_Permissions_v1"]}[Data],
-			    Typed = Table.TransformColumnTypes(SharePoint_Permissions, {
-			        {"PermissionId", type text}, {"SiteId", type text}, {"FileId", type text},
-			        {"GrantedToEmail", type text}, {"GrantedToDisplayName", type text},
-			        {"GrantedToType", type text}, {"RoleDefinition", type text},
-			        {"LinkType", type text}, {"LinkScope", type text},
-			        {"CreatedDateTime", type datetimezone}, {"ExpirationDateTime", type datetimezone},
-			        {"IsInherited", type logical}, {"SharedBy", type text},
-			        {"SnapshotDate", type datetimezone}
-			    })
+			    Source = Lakehouse.Contents(null){[workspaceId=WorkspaceId]}[Data],
+			    Lakehouse = Source{[lakehouseId=LakehouseId]}[Data],
+			    SharePoint_Permissions = Lakehouse{[Id="SharePoint_Permissions_v1", ItemKind="Table"]}[Data]
 			in
-			    Typed
+			    SharePoint_Permissions
 
 	annotation PBI_NavigationStepName = Navigation
 
