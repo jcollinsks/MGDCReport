@@ -225,7 +225,7 @@ table SharePointFileActions
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
 			    SharePoint_FileActions = Source{[Schema="dbo", Item="SharePoint_FileActions_v1"]}[Data],
 			    Typed = Table.TransformColumnTypes(SharePoint_FileActions, {
 			        {"ActionId", type text}, {"SiteId", type text}, {"FileId", type text},

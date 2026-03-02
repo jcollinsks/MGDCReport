@@ -167,7 +167,7 @@ table SharePointGroups
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
 			    SharePoint_Groups = Source{[Schema="dbo", Item="SharePoint_Groups_v1"]}[Data],
 			    Typed = Table.TransformColumnTypes(SharePoint_Groups, {
 			        {"GroupId", type text}, {"SiteId", type text},

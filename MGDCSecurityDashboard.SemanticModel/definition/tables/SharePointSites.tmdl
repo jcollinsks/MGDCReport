@@ -308,7 +308,7 @@ table SharePointSites
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
 			    SharePoint_Sites = Source{[Schema="dbo", Item="SharePoint_Sites_v1"]}[Data],
 			    Typed = Table.TransformColumnTypes(SharePoint_Sites, {
 			        {"SiteId", type text}, {"SiteUrl", type text}, {"DisplayName", type text},

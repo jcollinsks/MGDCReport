@@ -235,7 +235,7 @@ table SharePointPermissions
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
 			    SharePoint_Permissions = Source{[Schema="dbo", Item="SharePoint_Permissions_v1"]}[Data],
 			    Typed = Table.TransformColumnTypes(SharePoint_Permissions, {
 			        {"PermissionId", type text}, {"SiteId", type text}, {"FileId", type text},

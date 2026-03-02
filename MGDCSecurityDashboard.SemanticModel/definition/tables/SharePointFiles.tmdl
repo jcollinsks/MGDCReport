@@ -265,7 +265,7 @@ table SharePointFiles
 		mode: import
 		source =
 			let
-			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName, [Implementation="2.0"]),
 			    SharePoint_Files = Source{[Schema="dbo", Item="SharePoint_Files_v1"]}[Data],
 			    Typed = Table.TransformColumnTypes(SharePoint_Files, {
 			        {"FileId", type text}, {"SiteId", type text}, {"FileName", type text},
