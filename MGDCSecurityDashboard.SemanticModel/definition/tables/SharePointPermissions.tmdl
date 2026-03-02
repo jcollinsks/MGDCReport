@@ -231,12 +231,23 @@ table SharePointPermissions
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointPermissions = entity
-		mode: directLake
-		source
-			entityName: SharePoint_Permissions_v1
-			schemaName: dbo
-			expressionSource: DatabaseQuery
+	partition SharePointPermissions = m
+		mode: import
+		source =
+			let
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    SharePoint_Permissions = Source{[Schema="dbo", Item="SharePoint_Permissions_v1"]}[Data],
+			    Typed = Table.TransformColumnTypes(SharePoint_Permissions, {
+			        {"PermissionId", type text}, {"SiteId", type text}, {"FileId", type text},
+			        {"GrantedToEmail", type text}, {"GrantedToDisplayName", type text},
+			        {"GrantedToType", type text}, {"RoleDefinition", type text},
+			        {"LinkType", type text}, {"LinkScope", type text},
+			        {"CreatedDateTime", type datetimezone}, {"ExpirationDateTime", type datetimezone},
+			        {"IsInherited", type logical}, {"SharedBy", type text},
+			        {"SnapshotDate", type datetimezone}
+			    })
+			in
+			    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -261,12 +261,25 @@ table SharePointFiles
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointFiles = entity
-		mode: directLake
-		source
-			entityName: SharePoint_Files_v1
-			schemaName: dbo
-			expressionSource: DatabaseQuery
+	partition SharePointFiles = m
+		mode: import
+		source =
+			let
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    SharePoint_Files = Source{[Schema="dbo", Item="SharePoint_Files_v1"]}[Data],
+			    Typed = Table.TransformColumnTypes(SharePoint_Files, {
+			        {"FileId", type text}, {"SiteId", type text}, {"FileName", type text},
+			        {"FileExtension", type text}, {"FileSizeInBytes", Int64.Type},
+			        {"CreatedDateTime", type datetimezone}, {"LastModifiedDateTime", type datetimezone},
+			        {"CreatedBy", type text}, {"LastModifiedBy", type text},
+			        {"SensitivityLabelId", type text}, {"SensitivityLabelName", type text},
+			        {"IsEncrypted", type logical}, {"ContentType", type text},
+			        {"VersionCount", Int64.Type}, {"VersionStorageInBytes", Int64.Type},
+			        {"ListItemUrl", type text}, {"ParentFolderPath", type text},
+			        {"SnapshotDate", type datetimezone}
+			    })
+			in
+			    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

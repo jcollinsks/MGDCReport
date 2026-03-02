@@ -304,12 +304,27 @@ table SharePointSites
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointSites = entity
-		mode: directLake
-		source
-			entityName: SharePoint_Sites_v1
-			schemaName: dbo
-			expressionSource: DatabaseQuery
+	partition SharePointSites = m
+		mode: import
+		source =
+			let
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    SharePoint_Sites = Source{[Schema="dbo", Item="SharePoint_Sites_v1"]}[Data],
+			    Typed = Table.TransformColumnTypes(SharePoint_Sites, {
+			        {"SiteId", type text}, {"SiteUrl", type text}, {"DisplayName", type text},
+			        {"WebTemplate", type text}, {"CreatedDateTime", type datetimezone},
+			        {"LastModifiedDateTime", type datetimezone}, {"StorageUsedInBytes", Int64.Type},
+			        {"StorageAllocatedInBytes", Int64.Type}, {"IsDeleted", type logical},
+			        {"SensitivityLabelId", type text}, {"SensitivityLabelName", type text},
+			        {"SharingCapability", type text}, {"ConditionalAccessPolicy", type text},
+			        {"OwnerEmail", type text}, {"OwnerDisplayName", type text},
+			        {"GroupId", type text}, {"IsTeamsConnected", type logical},
+			        {"LockState", type text}, {"HubSiteId", type text},
+			        {"DeviceAccessPolicy", type text}, {"GeoLocation", type text},
+			        {"SnapshotDate", type datetimezone}
+			    })
+			in
+			    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

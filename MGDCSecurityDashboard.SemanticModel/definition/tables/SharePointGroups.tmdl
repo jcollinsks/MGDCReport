@@ -163,12 +163,22 @@ table SharePointGroups
 
 		annotation SummarizationSetBy = Automatic
 
-	partition SharePointGroups = entity
-		mode: directLake
-		source
-			entityName: SharePoint_Groups_v1
-			schemaName: dbo
-			expressionSource: DatabaseQuery
+	partition SharePointGroups = m
+		mode: import
+		source =
+			let
+			    Source = Sql.Database(LakehouseSQLEndpoint, LakehouseName),
+			    SharePoint_Groups = Source{[Schema="dbo", Item="SharePoint_Groups_v1"]}[Data],
+			    Typed = Table.TransformColumnTypes(SharePoint_Groups, {
+			        {"GroupId", type text}, {"SiteId", type text},
+			        {"GroupName", type text}, {"GroupType", type text},
+			        {"MemberCount", Int64.Type}, {"OwnerCount", Int64.Type},
+			        {"ExternalMemberCount", Int64.Type}, {"CreatedDateTime", type datetimezone},
+			        {"LastActivityDateTime", type datetimezone}, {"Description", type text},
+			        {"Visibility", type text}, {"SnapshotDate", type datetimezone}
+			    })
+			in
+			    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 
