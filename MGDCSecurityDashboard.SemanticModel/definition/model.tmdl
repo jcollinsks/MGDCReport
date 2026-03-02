@@ -32,10 +32,12 @@ relationship c6d0e4f8-7a5b-4d1c-e9f3-a8b2c3d5e7f9
 	toColumn: SharePointSites.SiteId
 
 relationship d7e1f5a9-8b6c-4e2d-f0a4-b9c3d4e6f8a0
+	isActive: false
 	fromColumn: SharePointFileActions.FileId
 	toColumn: SharePointFiles.FileId
 
 relationship e8f2a6b0-9c7d-4f3e-a1b5-c0d4e5f7a9b1
+	isActive: false
 	fromColumn: SharePointPermissions.FileId
 	toColumn: SharePointFiles.FileId
 
